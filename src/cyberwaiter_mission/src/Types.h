@@ -1,0 +1,15 @@
+#ifndef TYPES_H
+#define TYPES_H
+
+enum class Estado{
+    IDLE,
+    ORDER_RECEIVED,
+    PROCESSING_ORDER,
+    IDENTIFICATION,
+    RETRIEVING_ITEM,
+    DELIVERING_ITEM,
+    ORDER_COMPLETED
+};
+
+
+#endif // TYPES_H
