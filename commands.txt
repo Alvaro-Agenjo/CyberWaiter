@@ -1,0 +1,30 @@
+cd ~/workspace/ros_humble_ur_driver
+source install/setup.bash
+
+
+echo -e "\e[36m---------Launching sim-----------\e[0m \n" 
+ros2 run ur_client_library start_ursim.sh -m ur3e
+
+
+echo -e "\e[36m---------Launching rviz vis-----------\e[0m \n" 
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=192.168.56.101
+
+echo -e "\e[36m---------Controlling real ur-----------\e[0m \n" 
+conecct via ethernet cable
+in teach pendant:
+	- network options: set static ip (any)
+	- configure External control (host ip, and name)
+	- add urcaps program and play
+on user PC set IPv4 address (same network, different address)	
+	
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=any
+
+
+
+echo -e "\e[36m---------Activate controler-----------\e[0m \n" 
+use scaled trayectory controler: 
+	- ros2 control set_controller_state scaled_joint_trajectory_controller active
+check activation with: 
+	- ros2 control list_controllers
+
+ros2 run rqt_joint_trajectory_controller rqt_joint_trajectory_controller 
