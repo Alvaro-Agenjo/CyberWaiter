@@ -1,4 +1,4 @@
-cd ~/workspace/ros_humble_ur_driver
+,cd ~/workspace/ros_humble_ur_driver
 source install/setup.bash
 
 
@@ -28,3 +28,8 @@ check activation with:
 	- ros2 control list_controllers
 
 ros2 run rqt_joint_trajectory_controller rqt_joint_trajectory_controller 
+
+echo -e "\e[36m---------Launch test-----------\e[0m \n" 
+set initial position:
+	- 0, -90, 0,-90, 0, 0
+	- ros2 launch ur_robot_driver test_scaled_joint_trajectory_controller.launch.py ur_type:=ur3e
