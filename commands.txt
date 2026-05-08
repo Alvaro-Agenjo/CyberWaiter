@@ -33,3 +33,6 @@ echo -e "\e[36m---------Launch test-----------\e[0m \n"
 set initial position:
 	- 0, -90, 0,-90, 0, 0
 	- ros2 launch ur_robot_driver test_scaled_joint_trajectory_controller.launch.py ur_type:=ur3e
+	
+	
+
