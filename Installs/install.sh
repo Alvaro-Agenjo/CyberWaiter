@@ -64,7 +64,13 @@ echo -e "\e[36m---------Docker configuration---------\e[0m \n"
 sudo groupadd Docker
 sudo usermod -aG docker ${USER}
 sudo chmod 666 /var/run/docker.sock
-#docker network create --subnet=192.168.56.0/24 ursim_net
+
+
+echo -e "\e[36m---------VISION PACKAGES---------\e[0m \n" 
+sudo apt install ros-humble-realsense2-camera
+sudo apt install ros-humble-cv-bridge
+pip3 install opencv-python numpy
+
 
 
 echo -e "\e[36m---------Instalacion Finalizada---------\e[0m \n" 
