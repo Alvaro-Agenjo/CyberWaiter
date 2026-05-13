@@ -1,0 +1,26 @@
+[0.015s] Invoking command in '/home/irene/cyberwaiter/build/cyberwaiter_mission': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/irene/cyberwaiter/build/cyberwaiter_mission -- -j16 -l16
+[0.070s] [35m[1mConsolidate compiler generated dependencies of target Mision_Control[0m
+[0.092s] [100%] Built target Mision_Control
+[0.108s] Invoked command in '/home/irene/cyberwaiter/build/cyberwaiter_mission' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/irene/cyberwaiter/build/cyberwaiter_mission -- -j16 -l16
+[0.123s] Invoking command in '/home/irene/cyberwaiter/build/cyberwaiter_mission': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/irene/cyberwaiter/build/cyberwaiter_mission
+[0.132s] -- Install configuration: ""
+[0.132s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/lib/cyberwaiter_mission/Mision_Control
+[0.132s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/launch
+[0.133s] -- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/launch/cyberwaiter.launch.py
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/lib/cyberwaiter_mission/interfaz.py
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/ament_index/resource_index/package_run_dependencies/cyberwaiter_mission
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/ament_index/resource_index/parent_prefix_path/cyberwaiter_mission
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/ament_prefix_path.sh
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/ament_prefix_path.dsv
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/path.sh
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/path.dsv
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.bash
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.sh
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.zsh
+[0.133s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.dsv
+[0.133s] -- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/package.dsv
+[0.134s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/ament_index/resource_index/packages/cyberwaiter_mission
+[0.134s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/cmake/cyberwaiter_missionConfig.cmake
+[0.134s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/cmake/cyberwaiter_missionConfig-version.cmake
+[0.134s] -- Up-to-date: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/package.xml
+[0.137s] Invoked command in '/home/irene/cyberwaiter/build/cyberwaiter_mission' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/irene/cyberwaiter/build/cyberwaiter_mission

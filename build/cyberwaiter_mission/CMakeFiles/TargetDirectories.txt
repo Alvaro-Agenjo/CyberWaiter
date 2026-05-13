@@ -1,0 +1,10 @@
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/uninstall.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/cyberwaiter_mission_uninstall.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/Mision_Control.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/test.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/edit_cache.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/rebuild_cache.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/list_install_components.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/install.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/install/local.dir
+/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/install/strip.dir

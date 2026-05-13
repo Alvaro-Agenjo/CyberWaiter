@@ -1,0 +1,4 @@
+Invoking command in '/home/irene/cyberwaiter/build/cyberwaiter_mission': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/irene/cyberwaiter/build/cyberwaiter_mission -- -j16 -l16
+Invoked command in '/home/irene/cyberwaiter/build/cyberwaiter_mission' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/irene/cyberwaiter/build/cyberwaiter_mission -- -j16 -l16
+Invoking command in '/home/irene/cyberwaiter/build/cyberwaiter_mission': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/irene/cyberwaiter/build/cyberwaiter_mission
+Invoked command in '/home/irene/cyberwaiter/build/cyberwaiter_mission' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/irene/cyberwaiter/build/cyberwaiter_mission
