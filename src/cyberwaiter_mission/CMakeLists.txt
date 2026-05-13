@@ -10,9 +10,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 add_executable(Mision_Control src/mision_control.cpp)
-ament_target_dependencies(Mision_Control rclcpp std_msgs geometry_msgs)
+ament_target_dependencies(Mision_Control rclcpp std_msgs geometry_msgs tf2_geometry_msgs)
 
 install(TARGETS
   Mision_Control
