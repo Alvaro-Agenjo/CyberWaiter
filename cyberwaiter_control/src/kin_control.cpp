@@ -40,10 +40,10 @@ public:
         robot_description_sub_ = this->create_subscription<std_msgs::msg::String>("/robot_description", transient_local,
             std::bind(&Kinematic_controler::robot_description_callback, this, std::placeholders::_1));
 
-        cartesian_sub_ = this->create_subscription<geometry_msgs::msg::Pose>("/gui_bridge/cmd", reliable__Volatile, 
+        cartesian_sub_ = this->create_subscription<geometry_msgs::msg::Pose>("/goals/goal_coord", reliable__Volatile, 
             std::bind(&Kinematic_controler::cartesian_callback, this, std::placeholders::_1));
 
-        cmd_text_pub = this->create_publisher<std_msgs::msg::String>("gui_bridge/text", reliable__Volatile);
+        movement_state = this->create_publisher<std_msgs::msg::String>("/goals/state", reliable__Volatile);
 
         joint_state_sub_ = this->create_subscription<sensor_msgs::msg::JointState>("/joint_states", best_effort__Volatile,
              std::bind(&Kinematic_controler::joint_state_callback, this, std::placeholders::_1));
@@ -56,13 +56,7 @@ public:
         this->client_ptr_ = rclcpp_action::create_client<FollowJointTrajectory>(
             this, //nodo
             "/scaled_joint_trajectory_controller/follow_joint_trajectory" //nombre de la accion
-        );
-        // explicit Kinematic_controler(const rclcpp::NodeOptions & options)//= rclcpp::NodeOptions())
-        // : Node("ur_action_client", options)
-        // {
-            
-        // }
-        
+        );       
 
         }
 
@@ -243,15 +237,30 @@ private:
 
     void result_callback(const GoalHandleFollowJointTrajectory::WrappedResult & result) {
         switch (result.code) {
-        case rclcpp_action::ResultCode::SUCCEEDED:
+        case rclcpp_action::ResultCode::SUCCEEDED:{
             RCLCPP_INFO(this->get_logger(), "¡Movimiento completado con éxito!");
+            
+            auto msg = std_msgs::msg::String();
+            msg.data = "OK";
+            movement_state->publish(msg);    
             break;
-        case rclcpp_action::ResultCode::ABORTED:
+        }
+        case rclcpp_action::ResultCode::ABORTED:{
             RCLCPP_ERROR(this->get_logger(), "El movimiento fue abortado");
+        
+            auto msg = std_msgs::msg::String();
+            msg.data = "NOK";
+            movement_state->publish(msg);
             return;
-        case rclcpp_action::ResultCode::CANCELED:
-            RCLCPP_ERROR(this->get_logger(), "El movimiento fue cancelado");
+        }
+        case rclcpp_action::ResultCode::CANCELED:{
+	    RCLCPP_ERROR(this->get_logger(), "El movimiento fue cancelado");
+	    
+	    auto msg = std_msgs::msg::String();
+            msg.data = "NOK";
+            movement_state->publish(msg);           
             return;
+        }
         default:
             RCLCPP_ERROR(this->get_logger(), "Código de resultado desconocido");
             return;
@@ -269,7 +278,7 @@ private:
     KDL::JntArray current_joint_state_;
     KDL::Frame goal;
 
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr cmd_text_pub;
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr movement_state;
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr cmd_text_sub_;
 
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr robot_description_sub_;
