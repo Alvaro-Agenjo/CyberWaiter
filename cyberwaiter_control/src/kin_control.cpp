@@ -22,7 +22,7 @@
 
 #include "urdf/model.h"
 
-#define vel 0.03
+#define vel 0.5
 using namespace std::chrono_literals;
 
 class Kinematic_controler : public rclcpp::Node {
@@ -115,7 +115,7 @@ private:
         }
 
         ik_solver_ = std::make_shared<KDL::ChainIkSolverPos_NR_JL>(
-            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 8000, 1e-5);
+            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 10000, 1e-4);
 
         kdl_initialized_ = true;
         RCLCPP_INFO(this->get_logger(), "KDL inicializado correctamente con el URDF del sistema.");
@@ -148,8 +148,7 @@ private:
             }
         }
 
-        // RCLCPP_INFO(this->get_logger(), "Coordenadas articulares cb: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f]", 
-        //      current_joint_state_(0), current_joint_state_(1), current_joint_state_(2), current_joint_state_(3), current_joint_state_(4), current_joint_state_(5));
+         //RCLCPP_INFO(this->get_logger(), "Coordenadas articulares cb: [%.2f, %.2f, %.2f, %.2f, %.2f, %.2f]", current_joint_state_(0), current_joint_state_(1), current_joint_state_(2), current_joint_state_(3), current_joint_state_(4), current_joint_state_(5));
     }
 
     void cartesian_callback(const geometry_msgs::msg::Pose::SharedPtr msg) {
