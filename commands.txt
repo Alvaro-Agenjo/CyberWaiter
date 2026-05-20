@@ -10,14 +10,20 @@ echo -e "\e[36m---------Launching rviz vis-----------\e[0m \n"
 ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=192.168.56.101
 
 echo -e "\e[36m---------Controlling real ur-----------\e[0m \n" 
+
+
 conecct via ethernet cable
 in teach pendant:
 	- network options: set static ip (any)
 	- configure External control (host ip, and name)
 	- add urcaps program and play
 on user PC set IPv4 address (same network, different address)	
-	
-ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=any
+
+create calibration:
+- ros2 launch ur_calibration calibration_correction.launch.py   robot_ip:=any   target_filename:="${HOME}/my_ur3e_calibration.yaml"
+
+launch controller: 
+- ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=any kinematics_params_file:="${HOME}/my_ur3e_calibration.yaml"
 
 
 
@@ -35,4 +41,4 @@ set initial position:
 	- ros2 launch ur_robot_driver test_scaled_joint_trajectory_controller.launch.py ur_type:=ur3e
 	
 	
-
+killall -9 ur_ros2_control_node robot_state_publisher rviz2
