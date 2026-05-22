@@ -47,3 +47,6 @@ killall -9 ur_ros2_control_node robot_state_publisher rviz2
 
 alternative KDL
 - ros2 run cyberwaiter_control kin_solver 
+
+for gripper 
+- ros2 run cyberwaiter_control gripper
