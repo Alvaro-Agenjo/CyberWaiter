@@ -22,7 +22,9 @@
 
 #include "urdf/model.h"
 
-#define vel 0.5
+#include "cyberwaiter_msgs/srv/gripper.hpp"
+
+#define vel 0.3
 using namespace std::chrono_literals;
 
 class Kinematic_controler : public rclcpp::Node {
@@ -50,6 +52,9 @@ public:
 
 
         RCLCPP_INFO(this->get_logger(), "Esperando el URDF desde /robot_description...");
+
+        /* Services */
+        gripper_client_ = this->create_client<cyberwaiter_msgs::srv::Gripper>("/close_gripper");
 
         /*Accion */
         
@@ -238,10 +243,26 @@ private:
         switch (result.code) {
         case rclcpp_action::ResultCode::SUCCEEDED:{
             RCLCPP_INFO(this->get_logger(), "¡Movimiento completado con éxito!");
-            
-            auto msg = std_msgs::msg::String();
-            msg.data = "OK";
-            movement_state->publish(msg);    
+            static int state = 0;
+            bool result;
+            switch (state)
+            {
+            case 0:
+                result = set_gripper(true);
+                break;
+            case 1:
+                result = set_gripper(false);
+                break;
+            default:
+                break;
+            }
+        
+            if (result){
+                auto msg = std_msgs::msg::String();
+                msg.data = "OK";
+                movement_state->publish(msg);  
+                state = (state + 1) % 3;  
+            }
             break;
         }
         case rclcpp_action::ResultCode::ABORTED:{
@@ -266,6 +287,20 @@ private:
         }
     }
     
+    bool set_gripper(bool close){
+        auto request = std::make_shared<cyberwaiter_msgs::srv::Gripper::Request>();
+        request->state = close;
+
+        while (!gripper_client_->wait_for_service(3s)) {
+            RCLCPP_ERROR(this->get_logger(), "El servicio de gripper no está disponible.");
+            return false;
+        }
+
+        auto future = gripper_client_->async_send_request(request);
+        
+        auto response = future.get();
+        return response->success;
+    }
     bool kdl_initialized_ = false;
     bool first_run_ = false;
 
@@ -283,6 +318,8 @@ private:
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr robot_description_sub_;
     rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr cartesian_sub_;
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_sub_;
+
+    rclcpp::Client<cyberwaiter_msgs::srv::Gripper>::SharedPtr gripper_client_;
 
     rclcpp_action::Client<FollowJointTrajectory>::SharedPtr client_ptr_;
 };

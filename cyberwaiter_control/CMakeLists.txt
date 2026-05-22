@@ -21,19 +21,28 @@ find_package(rclcpp_action REQUIRED)
 find_package(control_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 
+find_package(ur_msgs REQUIRED)
+find_package(cyberwaiter_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
 
-add_executable(kin_solver src/kin_control.cpp)
-ament_target_dependencies(kin_solver rclcpp std_msgs sensor_msgs 
-  tf2_geometry_msgs geometry_msgs 
-  kdl_parser orocos_kdl urdf 
-  rclcpp_action control_msgs trajectory_msgs)
+add_executable(kin_solver src/kin_control.cpp )
+ament_target_dependencies(kin_solver
+rclcpp std_msgs sensor_msgs 
+tf2_geometry_msgs geometry_msgs 
+kdl_parser orocos_kdl urdf 
+rclcpp_action control_msgs trajectory_msgs 
+cyberwaiter_msgs)
+
+add_executable(gripper src/grip_chat.cpp )
+ament_target_dependencies(gripper
+rclcpp ur_msgs cyberwaiter_msgs) 
 
 install(TARGETS
   kin_solver
+  gripper
   DESTINATION lib/${PROJECT_NAME}
 )
 
