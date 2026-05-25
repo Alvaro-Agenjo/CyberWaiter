@@ -1,13 +1,13 @@
 import solara
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int8MultiArray, String
+from std_msgs.msg import Int8MultiArray, String, Int8
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-import threading
-import time
 import cv2
 import base64
+import threading
+import time
 
 # --- ESTADO REACTIVO ---
 robot_status_msg = solara.reactive("ESPERANDO CONEXIÓN...")
@@ -19,32 +19,52 @@ qty = solara.reactive(1)
 
 # Diccionario para mapear nombres a IDs (debe coincidir con tu lógica de C++)
 DRINKS = ["Coca Cola", "Fanta Limón"]
-DRINK_TO_ID = {"Coca Cola": 0, "Fanta Limón": 1}
+DRINK_TO_ID = {"Coca Cola": 0, "Fanta Limón": 3}
 
 class SolaraRosNode(Node):
     def __init__(self):
         super().__init__('solara_interface_node')
         self.bridge = CvBridge()
+        self.last_image_time = 0.0
+        self.update_interval = 0.15  # Max ~6.6 Hz update rate to throttle rendering
         self.publisher_pedido = self.create_publisher(Int8MultiArray, 'pedido', 10)
+        self.publisher_objetivo = self.create_publisher(String, '/deteccion/objetivo', 10)
         self.subscription_status = self.create_subscription(
             String, 'mision_state', self.status_callback, 10)
-        
-        self.subscription_cam = self.create_subscription(
-            Image, 'deteccion/output', self.image_callback, 10)
+        self.subscription_image = self.create_subscription(
+            Image, '/deteccion/output', self.image_callback, 10)
+        self.subscription_ref = self.create_subscription(
+            String, 'identification_reference', self.ref_callback, 10)
 
     def status_callback(self, msg):
         robot_status_msg.value = msg.data
+        if msg.data in ["Finish", "No item", "ESPERANDO CONEXIÓN..."]:
+            try:
+                msg_obj = String()
+                msg_obj.data = ""
+                self.publisher_objetivo.publish(msg_obj)
+            except Exception as e:
+                self.get_logger().error(f"Error clearing objective: {e}")
+
+    def ref_callback(self, msg):
+        try:
+            self.publisher_objetivo.publish(msg)
+            self.get_logger().info(f"Ref Callback: Objetivo publicado directamente: {msg.data}")
+        except Exception as e:
+            self.get_logger().error(f"Error in ref_callback: {e}")
 
     def image_callback(self, msg):
+        current_time = time.time()
+        if current_time - self.last_image_time < self.update_interval:
+            return
         try:
             cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-            # Codificar la imagen a JPEG
             _, buffer = cv2.imencode('.jpg', cv_image)
-            # Convertir a base64 para poder mostrarla en la etiqueta <img>
-            base64_str = base64.b64encode(buffer).decode('utf-8')
-            camera_image_data.value = f"data:image/jpeg;base64,{base64_str}"
+            jpg_as_text = base64.b64encode(buffer).decode('utf-8')
+            camera_image_data.value = f"data:image/jpeg;base64,{jpg_as_text}"
+            self.last_image_time = current_time
         except Exception as e:
-            self.get_logger().error(f"Error procesando imagen: {e}")
+            self.get_logger().error(f"Error converting image: {e}")
 
     def enviar_pedido(self, lista_carrito):
         msg = Int8MultiArray()
@@ -62,15 +82,25 @@ class SolaraRosNode(Node):
         self.get_logger().info(f'Pedido enviado: {data}')
 
 # --- INICIALIZACIÓN DE ROS ---
-ros_node = None
+ros_node = solara.reactive(None)
+
 def start_ros():
-    global ros_node
     if not rclpy.ok():
         rclpy.init()
-    ros_node = SolaraRosNode()
-    rclpy.spin(ros_node)
+    node = SolaraRosNode()
+    import sys
+    sys._cyberwaiter_ros_node = node
+    ros_node.value = node
+    rclpy.spin(node)
 
-threading.Thread(target=start_ros, daemon=True).start()
+def ensure_ros_started():
+    import sys
+    if hasattr(sys, '_cyberwaiter_ros_node'):
+        ros_node.value = sys._cyberwaiter_ros_node
+    else:
+        if not hasattr(sys, '_cyberwaiter_ros_thread_started'):
+            sys._cyberwaiter_ros_thread_started = True
+            threading.Thread(target=start_ros, daemon=True).start()
 
 # --- LÓGICA DE LA INTERFAZ ---
 def add_to_cart():
@@ -80,9 +110,9 @@ def add_to_cart():
     cart.value = current_cart
 
 def send_to_robot():
-    if ros_node and cart.value:
+    if ros_node.value and cart.value:
         is_sending.value = True
-        ros_node.enviar_pedido(cart.value) # Corregido el nombre del método
+        ros_node.value.enviar_pedido(cart.value) # Corregido el nombre del método
         time.sleep(2) # Simulación de envío
         cart.value = [] # Limpiar carrito tras enviar
         is_sending.value = False
@@ -312,6 +342,11 @@ html, body, #app, .v-application, .v-application--wrap, .solara-container, .sola
 def Page():
     solara.Style(css)
     
+    # Ensure ROS is started when the page loads
+    solara.use_effect(ensure_ros_started, [])
+    
+    # Dynamic search target is driven from C++ mission via identification_reference subscription
+    
     with solara.Column(classes=["solara-container"], style={"padding": "2rem"}):
         with solara.Column(style={"max-width": "1200px", "margin": "0 auto", "width": "100%"}):
             
@@ -329,9 +364,7 @@ def Page():
                     with solara.Column(classes=["panel"]):
                         with solara.Row(classes=["camera-viewport"]):
                             if camera_image_data.value:
-                                solara.HTML(tag="img", attributes={"src": camera_image_data.value, "alt": "Robot Stream"})
-                            else:
-                                solara.HTML(tag="img", attributes={"src": "https://plus.unsplash.com/premium_photo-1683120912290-798782bb446f?q=80&w=2070&auto=format&fit=crop", "alt": "Robot View"})
+                                solara.HTML(tag="img", attributes={"src": camera_image_data.value, "width": "100%", "alt": "Robot Stream"})
                         
                         with solara.Row(style={"margin-top": "1.5rem", "gap": "1rem"}):
                             with solara.Column(classes=["spec-card-styled"]):
