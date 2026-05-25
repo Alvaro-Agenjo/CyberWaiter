@@ -54,7 +54,11 @@ public:
         RCLCPP_INFO(this->get_logger(), "Esperando el URDF desde /robot_description...");
 
         /* Services */
-        gripper_client_ = this->create_client<cyberwaiter_msgs::srv::Gripper>("/close_gripper");
+        callback_group_client_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+        gripper_client_ = this->create_client<cyberwaiter_msgs::srv::Gripper>(
+            "/close_gripper", 
+            rmw_qos_profile_services_default, 
+            callback_group_client_);
 
         /*Accion */
         
@@ -88,6 +92,24 @@ private:
             return;
         }
 
+        // KDL::Frame dynamic_offset(KDL::Rotation::Identity(), KDL::Vector(0.0, 0.0, 0.17));
+        // chain_.addSegment(KDL::Segment(KDL::Joint(KDL::Joint::None), dynamic_offset));
+
+        // // Aseguramos la inicialización explícita del offset en el constructor
+        // KDL::Vector tcp_offset(0.0, 0.0, 0.17); // 170 mm en metros
+
+        // // Forzamos a KDL a entender que los ejes del TCP son idénticos en orientación a tool0
+        // KDL::Rotation tcp_rotation = KDL::Rotation::RPY(0.0, 0.0, 0.0); 
+        // KDL::Frame tcp_frame(tcp_rotation, tcp_offset);
+
+        // KDL::Segment tcp_segment(
+        //     "TCP",
+        //     KDL::Joint(KDL::Joint::None), // Unión rígida
+        //     tcp_frame
+        // );
+
+        // chain_.addSegment(tcp_segment);
+
         fk_solver_ = std::make_shared<KDL::ChainFkSolverPos_recursive>(chain_);
         vik_solver_ = std::make_shared<KDL::ChainIkSolverVel_pinv>(chain_);
         
@@ -95,6 +117,7 @@ private:
         current_joint_state_.resize(chain_.getNrOfJoints());
 
         
+
         KDL::JntArray q_min(chain_.getNrOfJoints()), q_max(chain_.getNrOfJoints());
         unsigned int joint_counter = 0;
         for (unsigned int i = 0; i < chain_.getNrOfSegments(); i++) {
@@ -104,12 +127,17 @@ private:
 
             auto urdf_joint = urdf_model.getJoint(joint.getName());
 
-            if (urdf_joint && urdf_joint->limits && joint.getName() != "wrist_3_joint") {
+            if (urdf_joint && urdf_joint->limits && (joint.getName() != "wrist_3_joint")){// && joint.getName() != "shoulder_lift_joint")) {
                 q_min(joint_counter) = urdf_joint->limits->lower;
                 q_max(joint_counter) = urdf_joint->limits->upper;
-            } else {
-                q_min(joint_counter) = -3.14159;
-                q_max(joint_counter) = 3.14159;
+            }
+            // else if (joint.getName() == "shoulder_lift_joint") {
+            //     q_min(joint_counter) = 0; // 0 grados
+            //     q_max(joint_counter) = -3.14159;  // 90 grados
+            // }
+            else {
+                q_min(joint_counter) = -3.14159*2;
+                q_max(joint_counter) = 3.14159*2;
             }
 
             RCLCPP_INFO(this->get_logger(), "Joint %d (Index %d): %s, Limits: [%.2f, %.2f]", 
@@ -120,7 +148,7 @@ private:
         }
 
         ik_solver_ = std::make_shared<KDL::ChainIkSolverPos_NR_JL>(
-            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 10000, 1e-4);
+            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 1000, 1e-4);
 
         kdl_initialized_ = true;
         RCLCPP_INFO(this->get_logger(), "KDL inicializado correctamente con el URDF del sistema.");
@@ -157,7 +185,6 @@ private:
     }
 
     void cartesian_callback(const geometry_msgs::msg::Pose::SharedPtr msg) {
-                
         goal.M = KDL::Rotation::Quaternion(
         msg->orientation.x,
         msg->orientation.y,
@@ -169,18 +196,30 @@ private:
         msg->position.y,
         msg->position.z);
 
+    
+        KDL::Frame tool0_deseado = goal * KDL::Frame(KDL::Vector(0.0, 0.0, -0.17));
 
+        // // 3. Pasamos al solver la pose de tool0_deseado (que mantendrá limpia la cinemática nativa)
         KDL::JntArray target_joints(chain_.getNrOfJoints());
-        int ret = ik_solver_->CartToJnt(current_joint_state_, goal, target_joints);
+        int ret = ik_solver_->CartToJnt(current_joint_state_, tool0_deseado, target_joints);
+
+    
+    
+    
+        // KDL::JntArray target_joints(chain_.getNrOfJoints());
+        // int ret = ik_solver_->CartToJnt(current_joint_state_, goal, target_joints);
+        
 
 
-        KDL::Frame current_fk_pose;
-        fk_solver_->JntToCart(current_joint_state_, current_fk_pose);
+        // KDL::Frame current_fk_pose;
+        // fk_solver_->JntToCart(current_joint_state_, current_fk_pose);
 
-        RCLCPP_INFO(this->get_logger(), "Pose actual FK: X:%.3f Y:%.3f Z:%.3f", 
-                    current_fk_pose.p.x(), current_fk_pose.p.y(), current_fk_pose.p.z());
+        // RCLCPP_INFO(this->get_logger(), "Pose actual FK: X:%.3f Y:%.3f Z:%.3f", 
+        //             current_fk_pose.p.x(), current_fk_pose.p.y(), current_fk_pose.p.z());
         RCLCPP_INFO(this->get_logger(), "Pose objetivo: X:%.3f Y:%.3f Z:%.3f", 
                     goal.p.x(), goal.p.y(), goal.p.z());
+        RCLCPP_INFO(this->get_logger(), "Pose objetivo: X:%.3f Y:%.3f Z:%.3f", 
+                    tool0_deseado.p.x(), tool0_deseado.p.y(), tool0_deseado.p.z());
         
         if (ret >= 0) {
             std::vector<double> target_positions(target_joints.rows());
@@ -247,14 +286,17 @@ private:
             bool result;
             switch (state)
             {
-            case 0:
+            case 0:{
                 result = set_gripper(true);
                 break;
-            case 1:
+            }
+            case 1:{
                 result = set_gripper(false);
                 break;
-            default:
+            }
+            default:{
                 break;
+            }
             }
         
             if (result){
@@ -262,6 +304,7 @@ private:
                 msg.data = "OK";
                 movement_state->publish(msg);  
                 state = (state + 1) % 3;  
+                RCLCPP_INFO(this->get_logger(), "Estado del gripper %d.", state);
             }
             break;
         }
@@ -300,6 +343,7 @@ private:
         
         auto response = future.get();
         return response->success;
+
     }
     bool kdl_initialized_ = false;
     bool first_run_ = false;
@@ -320,14 +364,18 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_sub_;
 
     rclcpp::Client<cyberwaiter_msgs::srv::Gripper>::SharedPtr gripper_client_;
-
+    rclcpp::CallbackGroup::SharedPtr callback_group_client_;
     rclcpp_action::Client<FollowJointTrajectory>::SharedPtr client_ptr_;
 };
 
 
 int main(int argc, char * argv[]) {
     rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<Kinematic_controler>());
+    auto node = std::make_shared<Kinematic_controler>();
+    rclcpp::executors::MultiThreadedExecutor executor;
+    executor.add_node(node);
+    
+    executor.spin();
     rclcpp::shutdown();
     return 0;
 }
