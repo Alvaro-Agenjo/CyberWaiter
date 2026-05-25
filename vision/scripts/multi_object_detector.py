@@ -77,7 +77,8 @@ class MultiObjectDetector(Node):
             self.current_objective = target_name
             self.get_logger().info(f"Objetivo fijado: {target_name}. Buscando...")
         else:
-            self.get_logger().warn(f"Objetivo '{target_name}' no reconocido.")
+            self.current_objective = None
+            self.get_logger().info("Objetivo limpiado o no reconocido. Mostrando cámara en bruto.")
 
     def callback(self, data):
         frame = self.bridge.imgmsg_to_cv2(data, 'bgr8')
@@ -110,10 +111,15 @@ class MultiObjectDetector(Node):
                         v_idx, u_idx = int(centro_v), int(centro_u)
                         if 0 <= v_idx < self.latest_depth_frame.shape[0] and 0 <= u_idx < self.latest_depth_frame.shape[1]:
                             distancia_z = self.latest_depth_frame[v_idx, u_idx] / 1000.0
-                    
+
+                    # Parámetros calibrados (1920x1080): fx=1337.45, fy=1327.61, cx=988.65, cy=550.17
+                    #pos_x = (centro_u - 988.65) * distancia_z / 1337.45
+                    #pos_y = (centro_v - 550.17) * distancia_z / 1327.61
+                    #[fx, 0, cx, 0, fy, cy, 0, 0, 1]
+
                     if distancia_z <= 0: distancia_z = 0.4
-                    pos_x = (centro_u - 320.0) * distancia_z / 615.0
-                    pos_y = (centro_v - 240.0) * distancia_z / 615.0
+                    pos_x = (centro_u - 965.0) * distancia_z / 1402.5
+                    pos_y = (centro_v - 537.0) * distancia_z / 1402.5
 
                     # 2. ORIENTACIÓN (Ejes Estructurales)
                     rect = cv2.minAreaRect(c)
