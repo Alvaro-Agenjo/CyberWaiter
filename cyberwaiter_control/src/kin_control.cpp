@@ -295,6 +295,7 @@ private:
                 break;
             }
             default:{
+				result = true;
                 break;
             }
             }
