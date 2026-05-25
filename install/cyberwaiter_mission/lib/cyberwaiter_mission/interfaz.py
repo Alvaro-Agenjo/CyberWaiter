@@ -108,9 +108,10 @@ html, body, #app, .v-application, .v-application--wrap, .solara-container, .sola
 }
 
 .status-badge {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.5);
-    color: #4ade80;
+    background: rgba(59, 130, 246, 0.2) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5);
+    /*color: #60a5fa;*/
+    color: white !important;
     padding: 0.5rem 1rem;
     border-radius: 99rem;
     font-weight: 600;
@@ -122,9 +123,9 @@ html, body, #app, .v-application, .v-application--wrap, .solara-container, .sola
 .status-dot {
     width: 8px;
     height: 8px;
-    background: #4ade80;
+    background: #60a5fa;
     border-radius: 50%;
-    box-shadow: 0 0 10px #4ade80;
+    box-shadow: 0 0 10px #60a5fa;
     animation: pulse 2s infinite;
 }
 
@@ -175,7 +176,7 @@ html, body, #app, .v-application, .v-application--wrap, .solara-container, .sola
 }
 
 .spec-card-styled {
-    background: rgba(255, 255, 255, 0.03) !important;
+    background: rgba(59, 130, 246, 0.1) !important;
     padding: 1rem;
     border-radius: 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -262,6 +263,33 @@ html, body, #app, .v-application, .v-application--wrap, .solara-container, .sola
     opacity: 0.5 !important;
     transform: none !important;
 }
+
+/* --- Estilos para Dropdown e Inputs --- */
+
+/* Forzar que CUALQUIER elemento dentro de nuestros selectores e inputs sea blanco */
+.custom-dropdown, .custom-dropdown *, 
+.custom-input, .custom-input * {
+    color: white !important;
+}
+
+/* Forzar el fondo del menú desplegable (en Vuetify 3 usan v-overlay-container, en Vuetify 2 v-menu__content) */
+.v-overlay-container .v-list,
+.v-overlay-container .v-sheet,
+.v-menu__content,
+.v-menu__content .v-list {
+    background-color: #475569 !important;
+}
+
+/* Forzar que el texto dentro del menú desplegable sea blanco */
+.v-overlay-container *,
+.v-menu__content * {
+    color: white !important;
+}
+
+/* Efecto hover en el menú */
+.v-list-item:hover, .v-list-item--active {
+    background-color: #3b82f6 !important;
+}
 """
 
 @solara.component
@@ -304,19 +332,19 @@ def Page():
                         
                         with solara.Column(style={"margin-bottom": "1.5rem"}):
                             solara.HTML(tag="label", unsafe_innerHTML="SELECCIONAR BEBIDA", classes=["label-text"])
-                            solara.Select(label="", values=DRINKS, value=selected_drink)
+                            solara.Select(label="", values=DRINKS, value=selected_drink, classes=["custom-dropdown"])
                         
                         with solara.Column(style={"margin-bottom": "1rem"}):
                             solara.HTML(tag="label", unsafe_innerHTML="CANTIDAD", classes=["label-text"])
-                            solara.InputInt(label="", value=qty)
+                            solara.InputInt(label="", value=qty, classes=["custom-input"])
                         
                         solara.Button("Añadir al carrito", on_click=add_to_cart, classes=["btn-add"])
                         
                         with solara.Column(style={"flex": "1", "margin-top": "1rem", "overflow-y": "auto", "gap": "0.75rem", "margin-bottom": "1rem"}):
                             for item in cart.value:
                                 with solara.Row(classes=["order-item-styled"]):
-                                    solara.Text(item["drink"])
-                                    solara.Text(f"x{item['qty']}", style={"color": "#3b82f6", "font-weight": "800"})
+                                    solara.Text(item["drink"],style={"color": "white", "font-weight": "800"})
+                                    solara.Text(f"x{item['qty']}", style={"color": "white", "font-weight": "800"})
                         
                         is_disabled = len(cart.value) == 0 or is_sending.value
                         solara.Button(

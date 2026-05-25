@@ -1,0 +1,8 @@
+source;share/LAyR/hook/cmake_prefix_path.ps1
+source;share/LAyR/hook/cmake_prefix_path.dsv
+source;share/LAyR/hook/cmake_prefix_path.sh
+source;share/LAyR/local_setup.bash
+source;share/LAyR/local_setup.dsv
+source;share/LAyR/local_setup.ps1
+source;share/LAyR/local_setup.sh
+source;share/LAyR/local_setup.zsh

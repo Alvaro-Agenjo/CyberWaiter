@@ -30,13 +30,13 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
-)
 
 # Instalar el script de Python (interfaz.py)
 install(PROGRAMS scripts/interfaz.py
   DESTINATION lib/${PROJECT_NAME}
+)
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
 )
 
 ament_package()

@@ -1,0 +1,213 @@
+[0.000000] (-) TimerEvent: {}
+[0.000166] (-) JobUnselected: {'identifier': 'LAyR'}
+[0.000228] (cyberwaiter_mission) JobQueued: {'identifier': 'cyberwaiter_mission', 'dependencies': OrderedDict()}
+[0.000255] (cyberwaiter_mission) JobStarted: {'identifier': 'cyberwaiter_mission'}
+[0.010848] (cyberwaiter_mission) JobProgress: {'identifier': 'cyberwaiter_mission', 'progress': 'cmake'}
+[0.011571] (cyberwaiter_mission) Command: {'cmd': ['/usr/bin/cmake', '/home/irene/cyberwaiter/src/cyberwaiter_mission', '-DCMAKE_INSTALL_PREFIX=/home/irene/cyberwaiter/install/cyberwaiter_mission'], 'cwd': '/home/irene/cyberwaiter/build/cyberwaiter_mission', 'env': OrderedDict([('GZ_SIM_SYSTEM_PLUGIN_PATH', '/opt/ros/humble/lib'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('GZ_SIM_RESOURCE_PATH', '/opt/ros/humble/share/as2_gazebo_assets/worlds:/opt/ros/humble/share/as2_gazebo_assets/models'), ('USER', 'irene'), ('LC_TIME', 'es_ES.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/irene'), ('OLDPWD', '/home/irene/cyberwaiter/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_ES.UTF-8'), ('SYSTEMD_EXEC_PID', '2123'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/irene/cyberwaiter/install:/home/irene/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'irene'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'irene'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/irene/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/Irene-linux:@/tmp/.ICE-unix/2098,unix/Irene-linux:/tmp/.ICE-unix/2098'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_ES.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/ea0cec10_0229_4d21_b495_dac479b2fd37'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'es_ES.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.108'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '25'), ('AMENT_PREFIX_PATH', '/home/irene/cyberwaiter/install/LAyR:/home/irene/ros2_ws/install/scara_control:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_ES.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_ES.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'es_ES.UTF-8'), ('GZ_VERSION', 'fortress'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/irene/cyberwaiter/build/cyberwaiter_mission'), ('TURTLEBOT3_MODEL', 'burger'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_ES.UTF-8'), ('LC_PAPER', 'es_ES.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/irene/cyberwaiter/install/LAyR:/home/irene/ros2_ws/install/scara_control:/opt/ros/humble')]), 'shell': False}
+[0.099050] (-) TimerEvent: {}
+[0.132369] (cyberwaiter_mission) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.199163] (-) TimerEvent: {}
+[0.225705] (cyberwaiter_mission) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.235430] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.299143] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.299389] (-) TimerEvent: {}
+[0.304024] (cyberwaiter_mission) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.304423] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.304965] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.307730] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.379736] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.385249] (cyberwaiter_mission) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.385555] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.385993] (cyberwaiter_mission) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.389914] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.399500] (-) TimerEvent: {}
+[0.499783] (-) TimerEvent: {}
+[0.509348] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.599934] (-) TimerEvent: {}
+[0.619578] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found rclcpp: 16.0.17 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.667953] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.673935] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.683372] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.696127] (cyberwaiter_mission) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.700018] (-) TimerEvent: {}
+[0.712769] (cyberwaiter_mission) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.759033] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.762345] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.800193] (-) TimerEvent: {}
+[0.856066] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[0.883176] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[0.900271] (-) TimerEvent: {}
+[0.923826] (cyberwaiter_mission) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.935582] (cyberwaiter_mission) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.000423] (-) TimerEvent: {}
+[1.008710] (cyberwaiter_mission) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.009079] (cyberwaiter_mission) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.078507] (cyberwaiter_mission) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.079365] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.100515] (-) TimerEvent: {}
+[1.129629] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[1.143589] (cyberwaiter_mission) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.200650] (-) TimerEvent: {}
+[1.211232] (cyberwaiter_mission) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.211420] (cyberwaiter_mission) StdoutLine: {'line': b'-- Configured cppcheck include dirs: \n'}
+[1.211484] (cyberwaiter_mission) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.211728] (cyberwaiter_mission) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[1.212264] (cyberwaiter_mission) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.212710] (cyberwaiter_mission) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[1.213562] (cyberwaiter_mission) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.213654] (cyberwaiter_mission) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.214034] (cyberwaiter_mission) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.215327] (cyberwaiter_mission) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.222875] (cyberwaiter_mission) StdoutLine: {'line': b'-- Generating done\n'}
+[1.225570] (cyberwaiter_mission) StdoutLine: {'line': b'-- Build files have been written to: /home/irene/cyberwaiter/build/cyberwaiter_mission\n'}
+[1.233884] (cyberwaiter_mission) CommandEnded: {'returncode': 0}
+[1.234911] (cyberwaiter_mission) JobProgress: {'identifier': 'cyberwaiter_mission', 'progress': 'build'}
+[1.236439] (cyberwaiter_mission) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/irene/cyberwaiter/build/cyberwaiter_mission', '--', '-j16', '-l16'], 'cwd': '/home/irene/cyberwaiter/build/cyberwaiter_mission', 'env': OrderedDict([('GZ_SIM_SYSTEM_PLUGIN_PATH', '/opt/ros/humble/lib'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('GZ_SIM_RESOURCE_PATH', '/opt/ros/humble/share/as2_gazebo_assets/worlds:/opt/ros/humble/share/as2_gazebo_assets/models'), ('USER', 'irene'), ('LC_TIME', 'es_ES.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/irene'), ('OLDPWD', '/home/irene/cyberwaiter/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_ES.UTF-8'), ('SYSTEMD_EXEC_PID', '2123'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/irene/cyberwaiter/install:/home/irene/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'irene'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'irene'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/irene/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/Irene-linux:@/tmp/.ICE-unix/2098,unix/Irene-linux:/tmp/.ICE-unix/2098'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_ES.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/ea0cec10_0229_4d21_b495_dac479b2fd37'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'es_ES.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.108'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '25'), ('AMENT_PREFIX_PATH', '/home/irene/cyberwaiter/install/LAyR:/home/irene/ros2_ws/install/scara_control:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_ES.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_ES.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'es_ES.UTF-8'), ('GZ_VERSION', 'fortress'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/irene/cyberwaiter/build/cyberwaiter_mission'), ('TURTLEBOT3_MODEL', 'burger'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_ES.UTF-8'), ('LC_PAPER', 'es_ES.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/irene/cyberwaiter/install/LAyR:/home/irene/ros2_ws/install/scara_control:/opt/ros/humble')]), 'shell': False}
+[1.284657] (cyberwaiter_mission) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o\x1b[0m\n'}
+[1.300759] (-) TimerEvent: {}
+[1.401084] (-) TimerEvent: {}
+[1.501454] (-) TimerEvent: {}
+[1.601805] (-) TimerEvent: {}
+[1.702137] (-) TimerEvent: {}
+[1.802542] (-) TimerEvent: {}
+[1.902964] (-) TimerEvent: {}
+[2.003307] (-) TimerEvent: {}
+[2.103629] (-) TimerEvent: {}
+[2.203963] (-) TimerEvent: {}
+[2.304300] (-) TimerEvent: {}
+[2.404623] (-) TimerEvent: {}
+[2.504889] (-) TimerEvent: {}
+[2.605243] (-) TimerEvent: {}
+[2.705528] (-) TimerEvent: {}
+[2.805792] (-) TimerEvent: {}
+[2.906108] (-) TimerEvent: {}
+[3.006450] (-) TimerEvent: {}
+[3.106727] (-) TimerEvent: {}
+[3.207011] (-) TimerEvent: {}
+[3.241253] (cyberwaiter_mission) StderrLine: {'line': b'\x1b[01m\x1b[K/home/irene/cyberwaiter/src/cyberwaiter_mission/src/mision_control.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid MisionController::logic(int)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[3.241440] (cyberwaiter_mission) StderrLine: {'line': b'\x1b[01m\x1b[K/home/irene/cyberwaiter/src/cyberwaiter_mission/src/mision_control.cpp:106:52:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kcomparison of integer expressions of different signedness: \xe2\x80\x98\x1b[01m\x1b[Kint\x1b[m\x1b[K\xe2\x80\x99 and \xe2\x80\x98\x1b[01m\x1b[Kstd::vector<int>::size_type\x1b[m\x1b[K\xe2\x80\x99 {aka \xe2\x80\x98\x1b[01m\x1b[Klong unsigned int\x1b[m\x1b[K\xe2\x80\x99} [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wsign-compare\x07-Wsign-compare\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[3.241555] (cyberwaiter_mission) StderrLine: {'line': b'  106 |                                 if (\x1b[01;35m\x1b[Kcounter_pedido == pedido.size()\x1b[m\x1b[K){\n'}
+[3.241647] (cyberwaiter_mission) StderrLine: {'line': b'      |                                     \x1b[01;35m\x1b[K~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[3.307116] (-) TimerEvent: {}
+[3.407554] (-) TimerEvent: {}
+[3.507910] (-) TimerEvent: {}
+[3.608280] (-) TimerEvent: {}
+[3.708625] (-) TimerEvent: {}
+[3.808971] (-) TimerEvent: {}
+[3.909336] (-) TimerEvent: {}
+[4.009689] (-) TimerEvent: {}
+[4.110042] (-) TimerEvent: {}
+[4.210414] (-) TimerEvent: {}
+[4.310770] (-) TimerEvent: {}
+[4.411144] (-) TimerEvent: {}
+[4.511495] (-) TimerEvent: {}
+[4.611862] (-) TimerEvent: {}
+[4.712247] (-) TimerEvent: {}
+[4.812599] (-) TimerEvent: {}
+[4.912970] (-) TimerEvent: {}
+[5.013337] (-) TimerEvent: {}
+[5.113719] (-) TimerEvent: {}
+[5.214128] (-) TimerEvent: {}
+[5.314479] (-) TimerEvent: {}
+[5.414834] (-) TimerEvent: {}
+[5.515183] (-) TimerEvent: {}
+[5.615539] (-) TimerEvent: {}
+[5.715888] (-) TimerEvent: {}
+[5.816226] (-) TimerEvent: {}
+[5.916574] (-) TimerEvent: {}
+[6.017033] (-) TimerEvent: {}
+[6.117552] (-) TimerEvent: {}
+[6.217908] (-) TimerEvent: {}
+[6.318275] (-) TimerEvent: {}
+[6.418619] (-) TimerEvent: {}
+[6.518974] (-) TimerEvent: {}
+[6.619344] (-) TimerEvent: {}
+[6.719699] (-) TimerEvent: {}
+[6.820033] (-) TimerEvent: {}
+[6.920413] (-) TimerEvent: {}
+[7.020769] (-) TimerEvent: {}
+[7.121143] (-) TimerEvent: {}
+[7.221498] (-) TimerEvent: {}
+[7.321847] (-) TimerEvent: {}
+[7.422185] (-) TimerEvent: {}
+[7.522486] (-) TimerEvent: {}
+[7.622882] (-) TimerEvent: {}
+[7.723182] (-) TimerEvent: {}
+[7.823658] (-) TimerEvent: {}
+[7.924050] (-) TimerEvent: {}
+[8.024412] (-) TimerEvent: {}
+[8.124752] (-) TimerEvent: {}
+[8.225116] (-) TimerEvent: {}
+[8.325472] (-) TimerEvent: {}
+[8.425868] (-) TimerEvent: {}
+[8.526173] (-) TimerEvent: {}
+[8.626623] (-) TimerEvent: {}
+[8.726956] (-) TimerEvent: {}
+[8.827267] (-) TimerEvent: {}
+[8.927595] (-) TimerEvent: {}
+[9.027882] (-) TimerEvent: {}
+[9.128329] (-) TimerEvent: {}
+[9.228693] (-) TimerEvent: {}
+[9.329030] (-) TimerEvent: {}
+[9.429384] (-) TimerEvent: {}
+[9.529742] (-) TimerEvent: {}
+[9.630061] (-) TimerEvent: {}
+[9.730437] (-) TimerEvent: {}
+[9.830749] (-) TimerEvent: {}
+[9.931012] (-) TimerEvent: {}
+[10.031425] (-) TimerEvent: {}
+[10.131763] (-) TimerEvent: {}
+[10.232116] (-) TimerEvent: {}
+[10.332512] (-) TimerEvent: {}
+[10.432870] (-) TimerEvent: {}
+[10.533189] (-) TimerEvent: {}
+[10.633536] (-) TimerEvent: {}
+[10.733905] (-) TimerEvent: {}
+[10.834265] (-) TimerEvent: {}
+[10.934615] (-) TimerEvent: {}
+[11.034966] (-) TimerEvent: {}
+[11.135324] (-) TimerEvent: {}
+[11.235622] (-) TimerEvent: {}
+[11.335899] (-) TimerEvent: {}
+[11.436186] (-) TimerEvent: {}
+[11.536526] (-) TimerEvent: {}
+[11.636829] (-) TimerEvent: {}
+[11.737182] (-) TimerEvent: {}
+[11.837461] (-) TimerEvent: {}
+[11.937759] (-) TimerEvent: {}
+[12.038171] (-) TimerEvent: {}
+[12.079866] (cyberwaiter_mission) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable Mision_Control\x1b[0m\n'}
+[12.138312] (-) TimerEvent: {}
+[12.238710] (-) TimerEvent: {}
+[12.338956] (-) TimerEvent: {}
+[12.439230] (-) TimerEvent: {}
+[12.539518] (-) TimerEvent: {}
+[12.611251] (cyberwaiter_mission) StdoutLine: {'line': b'[100%] Built target Mision_Control\n'}
+[12.622351] (cyberwaiter_mission) CommandEnded: {'returncode': 0}
+[12.622916] (cyberwaiter_mission) JobProgress: {'identifier': 'cyberwaiter_mission', 'progress': 'install'}
+[12.633071] (cyberwaiter_mission) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/irene/cyberwaiter/build/cyberwaiter_mission'], 'cwd': '/home/irene/cyberwaiter/build/cyberwaiter_mission', 'env': OrderedDict([('GZ_SIM_SYSTEM_PLUGIN_PATH', '/opt/ros/humble/lib'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('GZ_SIM_RESOURCE_PATH', '/opt/ros/humble/share/as2_gazebo_assets/worlds:/opt/ros/humble/share/as2_gazebo_assets/models'), ('USER', 'irene'), ('LC_TIME', 'es_ES.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/irene'), ('OLDPWD', '/home/irene/cyberwaiter/src'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_ES.UTF-8'), ('SYSTEMD_EXEC_PID', '2123'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/irene/cyberwaiter/install:/home/irene/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'irene'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'irene'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/irene/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/Irene-linux:@/tmp/.ICE-unix/2098,unix/Irene-linux:/tmp/.ICE-unix/2098'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_ES.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/ea0cec10_0229_4d21_b495_dac479b2fd37'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'es_ES.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.108'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '25'), ('AMENT_PREFIX_PATH', '/home/irene/cyberwaiter/install/LAyR:/home/irene/ros2_ws/install/scara_control:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_ES.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_ES.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'es_ES.UTF-8'), ('GZ_VERSION', 'fortress'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/irene/cyberwaiter/build/cyberwaiter_mission'), ('TURTLEBOT3_MODEL', 'burger'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_ES.UTF-8'), ('LC_PAPER', 'es_ES.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/irene/cyberwaiter/install/LAyR:/home/irene/ros2_ws/install/scara_control:/opt/ros/humble')]), 'shell': False}
+[12.639625] (-) TimerEvent: {}
+[12.640367] (cyberwaiter_mission) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[12.640581] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/lib/cyberwaiter_mission/Mision_Control\n'}
+[12.647266] (cyberwaiter_mission) StdoutLine: {'line': b'-- Set runtime path of "/home/irene/cyberwaiter/install/cyberwaiter_mission/lib/cyberwaiter_mission/Mision_Control" to ""\n'}
+[12.647438] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/lib/cyberwaiter_mission/interfaz.py\n'}
+[12.647619] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/launch\n'}
+[12.647722] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/launch/cyberwaiter.launch.py\n'}
+[12.647879] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/ament_index/resource_index/package_run_dependencies/cyberwaiter_mission\n'}
+[12.648021] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/ament_index/resource_index/parent_prefix_path/cyberwaiter_mission\n'}
+[12.648172] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/ament_prefix_path.sh\n'}
+[12.648310] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/ament_prefix_path.dsv\n'}
+[12.648445] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/path.sh\n'}
+[12.648588] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/environment/path.dsv\n'}
+[12.648708] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.bash\n'}
+[12.648822] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.sh\n'}
+[12.648957] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.zsh\n'}
+[12.649138] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/local_setup.dsv\n'}
+[12.649286] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/package.dsv\n'}
+[12.649477] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/ament_index/resource_index/packages/cyberwaiter_mission\n'}
+[12.649613] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/cmake/cyberwaiter_missionConfig.cmake\n'}
+[12.649711] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/cmake/cyberwaiter_missionConfig-version.cmake\n'}
+[12.649882] (cyberwaiter_mission) StdoutLine: {'line': b'-- Installing: /home/irene/cyberwaiter/install/cyberwaiter_mission/share/cyberwaiter_mission/package.xml\n'}
+[12.651796] (cyberwaiter_mission) CommandEnded: {'returncode': 0}
+[12.691206] (cyberwaiter_mission) JobEnded: {'identifier': 'cyberwaiter_mission', 'rc': 0}
+[12.691786] (-) EventReactorShutdown: {}

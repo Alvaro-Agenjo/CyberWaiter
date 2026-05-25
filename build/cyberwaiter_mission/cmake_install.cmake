@@ -63,11 +63,11 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cyberwaiter_mission" TYPE DIRECTORY FILES "/home/irene/cyberwaiter/src/cyberwaiter_mission/launch")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cyberwaiter_mission" TYPE PROGRAM FILES "/home/irene/cyberwaiter/src/cyberwaiter_mission/scripts/interfaz.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cyberwaiter_mission" TYPE PROGRAM FILES "/home/irene/cyberwaiter/src/cyberwaiter_mission/scripts/interfaz.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/cyberwaiter_mission" TYPE DIRECTORY FILES "/home/irene/cyberwaiter/src/cyberwaiter_mission/launch")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

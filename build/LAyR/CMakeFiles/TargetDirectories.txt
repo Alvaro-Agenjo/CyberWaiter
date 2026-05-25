@@ -1,0 +1,10 @@
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/uninstall.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/LAyR_uninstall.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/visualizador_c.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/test.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/edit_cache.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/rebuild_cache.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/list_install_components.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/install.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/install/local.dir
+/home/irene/cyberwaiter/build/LAyR/CMakeFiles/install/strip.dir
