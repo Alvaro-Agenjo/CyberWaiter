@@ -13,6 +13,9 @@ echo -e "\e[36m---------Controlling real ur-----------\e[0m \n"
 
 
 conecct via ethernet cable
+
+lower the firewall restriction for comunication with ur3e
+- sudo ufw disable
 in teach pendant:
 	- network options: set static ip (any)
 	- configure External control (host ip, and name)
@@ -41,12 +44,10 @@ set initial position:
 	- ros2 launch ur_robot_driver test_scaled_joint_trajectory_controller.launch.py ur_type:=ur3e
 	
 	
-killall -9 ur_ros2_control_node robot_state_publisher rviz2
+# killall -9 ur_ros2_control_node robot_state_publisher rviz2
 
+echo -e "\e[36m---------Launch control node-----------\e[0m \n" 
 
-
-alternative KDL
 - ros2 run cyberwaiter_control kin_solver 
+- ros2 run cyberwaiter_control gripper 
 
-for gripper 
-- ros2 run cyberwaiter_control gripper
