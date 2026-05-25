@@ -6,6 +6,8 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import threading
 import time
+import cv2
+import base64
 
 # --- ESTADO REACTIVO ---
 robot_status_msg = solara.reactive("ESPERANDO CONEXIÓN...")
@@ -26,9 +28,23 @@ class SolaraRosNode(Node):
         self.publisher_pedido = self.create_publisher(Int8MultiArray, 'pedido', 10)
         self.subscription_status = self.create_subscription(
             String, 'mision_state', self.status_callback, 10)
+        
+        self.subscription_cam = self.create_subscription(
+            Image, 'deteccion/output', self.image_callback, 10)
 
     def status_callback(self, msg):
         robot_status_msg.value = msg.data
+
+    def image_callback(self, msg):
+        try:
+            cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+            # Codificar la imagen a JPEG
+            _, buffer = cv2.imencode('.jpg', cv_image)
+            # Convertir a base64 para poder mostrarla en la etiqueta <img>
+            base64_str = base64.b64encode(buffer).decode('utf-8')
+            camera_image_data.value = f"data:image/jpeg;base64,{base64_str}"
+        except Exception as e:
+            self.get_logger().error(f"Error procesando imagen: {e}")
 
     def enviar_pedido(self, lista_carrito):
         msg = Int8MultiArray()
