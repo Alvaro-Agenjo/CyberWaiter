@@ -40,8 +40,14 @@ Envía el nombre del objetivo al topic `/deteccion/objetivo`:
 # Para Coca-Cola
 ros2 topic pub /deteccion/objetivo std_msgs/msg/String "{data: 'COCA-COLA'}" --once
 
-# Para Fanta
-ros2 topic pub /deteccion/objetivo std_msgs/msg/String "{data: 'FANTA'}" --once
+# Para Fanta Limón
+ros2 topic pub /deteccion/objetivo std_msgs/msg/String "{data: 'FANTA-LIMON'}" --once
+
+# Para Fanta Naranja
+ros2 topic pub /deteccion/objetivo std_msgs/msg/String "{data: 'FANTA-NARANJA'}" --once
+
+# Para Cerveza
+ros2 topic pub /deteccion/objetivo std_msgs/msg/String "{data: 'CERVEZA'}" --once
 ```
 
 ### Cómo leer los resultados para el UR3

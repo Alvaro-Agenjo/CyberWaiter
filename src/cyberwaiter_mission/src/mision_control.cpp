@@ -165,11 +165,17 @@ class MisionController : public rclcpp::Node{
 					case 0:
 						id_msg.data = "COCA-COLA";
 						break;
-					case 3:
-						id_msg.data = "FANTA";
+					case 1:
+						id_msg.data = "FANTA-NARANJA";
 						break;
 					case 2:
 						id_msg.data = "Agua";
+						break;
+					case 3:
+						id_msg.data = "FANTA-LIMON";
+						break;
+					case 4:
+						id_msg.data = "CERVEZA";
 						break;
 				}
 				publisher_identification_reference_->publish(id_msg);

@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/irene/cyberwaiter/vision/src/visualizador_c.cpp" "CMakeFiles/visualizador_c.dir/src/visualizador_c.cpp.o" "gcc" "CMakeFiles/visualizador_c.dir/src/visualizador_c.cpp.o.d"
+  "/home/lucia/Escritorio/CyberWaiter/vision/src/visualizador_c.cpp" "CMakeFiles/visualizador_c.dir/src/visualizador_c.cpp.o" "gcc" "CMakeFiles/visualizador_c.dir/src/visualizador_c.cpp.o.d"
   )
 
 # Targets to which this target links.

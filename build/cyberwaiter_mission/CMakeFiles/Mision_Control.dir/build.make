@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/irene/cyberwaiter/src/cyberwaiter_mission
+CMAKE_SOURCE_DIR = /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/irene/cyberwaiter/build/cyberwaiter_mission
+CMAKE_BINARY_DIR = /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Mision_Control.dir/depend.make
@@ -70,18 +70,18 @@ include CMakeFiles/Mision_Control.dir/progress.make
 include CMakeFiles/Mision_Control.dir/flags.make
 
 CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o: CMakeFiles/Mision_Control.dir/flags.make
-CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o: /home/irene/cyberwaiter/src/cyberwaiter_mission/src/mision_control.cpp
+CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o: /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission/src/mision_control.cpp
 CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o: CMakeFiles/Mision_Control.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o -MF CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o.d -o CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o -c /home/irene/cyberwaiter/src/cyberwaiter_mission/src/mision_control.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o -MF CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o.d -o CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o -c /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission/src/mision_control.cpp
 
 CMakeFiles/Mision_Control.dir/src/mision_control.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Mision_Control.dir/src/mision_control.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/irene/cyberwaiter/src/cyberwaiter_mission/src/mision_control.cpp > CMakeFiles/Mision_Control.dir/src/mision_control.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission/src/mision_control.cpp > CMakeFiles/Mision_Control.dir/src/mision_control.cpp.i
 
 CMakeFiles/Mision_Control.dir/src/mision_control.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Mision_Control.dir/src/mision_control.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/irene/cyberwaiter/src/cyberwaiter_mission/src/mision_control.cpp -o CMakeFiles/Mision_Control.dir/src/mision_control.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission/src/mision_control.cpp -o CMakeFiles/Mision_Control.dir/src/mision_control.cpp.s
 
 # Object files for target Mision_Control
 Mision_Control_OBJECTS = \
@@ -92,29 +92,13 @@ Mision_Control_EXTERNAL_OBJECTS =
 
 Mision_Control: CMakeFiles/Mision_Control.dir/src/mision_control.cpp.o
 Mision_Control: CMakeFiles/Mision_Control.dir/build.make
+Mision_Control: /usr/lib/x86_64-linux-gnu/liborocos-kdl.so
+Mision_Control: /opt/ros/humble/lib/libtf2_ros.so
+Mision_Control: /opt/ros/humble/lib/libtf2.so
+Mision_Control: /opt/ros/humble/lib/libmessage_filters.so
+Mision_Control: /opt/ros/humble/lib/librclcpp_action.so
 Mision_Control: /opt/ros/humble/lib/librclcpp.so
-Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_c.so
-Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_c.so
-Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so
-Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_cpp.so
-Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_cpp.so
-Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_py.so
 Mision_Control: /opt/ros/humble/lib/liblibstatistics_collector.so
-Mision_Control: /opt/ros/humble/lib/librcl.so
-Mision_Control: /opt/ros/humble/lib/librmw_implementation.so
-Mision_Control: /opt/ros/humble/lib/libament_index_cpp.so
-Mision_Control: /opt/ros/humble/lib/librcl_logging_spdlog.so
-Mision_Control: /opt/ros/humble/lib/librcl_logging_interface.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_c.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_c.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_cpp.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_cpp.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_cpp.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_generator_py.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_c.so
-Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_generator_c.so
-Mision_Control: /opt/ros/humble/lib/librcl_yaml_param_parser.so
-Mision_Control: /opt/ros/humble/lib/libyaml.so
 Mision_Control: /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_c.so
 Mision_Control: /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_fastrtps_cpp.so
 Mision_Control: /opt/ros/humble/lib/librosgraph_msgs__rosidl_typesupport_introspection_c.so
@@ -131,39 +115,85 @@ Mision_Control: /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_cpp.s
 Mision_Control: /opt/ros/humble/lib/libstatistics_msgs__rosidl_generator_py.so
 Mision_Control: /opt/ros/humble/lib/libstatistics_msgs__rosidl_typesupport_c.so
 Mision_Control: /opt/ros/humble/lib/libstatistics_msgs__rosidl_generator_c.so
+Mision_Control: /opt/ros/humble/lib/librcl_action.so
+Mision_Control: /opt/ros/humble/lib/librcl.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_c.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_c.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_fastrtps_cpp.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_introspection_cpp.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_cpp.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_generator_py.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_typesupport_c.so
+Mision_Control: /opt/ros/humble/lib/librcl_interfaces__rosidl_generator_c.so
+Mision_Control: /opt/ros/humble/lib/librcl_yaml_param_parser.so
+Mision_Control: /opt/ros/humble/lib/libyaml.so
 Mision_Control: /opt/ros/humble/lib/libtracetools.so
+Mision_Control: /opt/ros/humble/lib/librmw_implementation.so
+Mision_Control: /opt/ros/humble/lib/libament_index_cpp.so
+Mision_Control: /opt/ros/humble/lib/librcl_logging_spdlog.so
+Mision_Control: /opt/ros/humble/lib/librcl_logging_interface.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_typesupport_fastrtps_c.so
+Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_c.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_c.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_typesupport_fastrtps_c.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_c.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_typesupport_fastrtps_c.so
 Mision_Control: /opt/ros/humble/lib/librosidl_typesupport_fastrtps_c.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_typesupport_introspection_c.so
+Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_c.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_introspection_c.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_typesupport_introspection_c.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_c.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_typesupport_introspection_c.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_typesupport_fastrtps_cpp.so
+Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps_cpp.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_cpp.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_typesupport_fastrtps_cpp.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_cpp.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_typesupport_fastrtps_cpp.so
 Mision_Control: /opt/ros/humble/lib/librosidl_typesupport_fastrtps_cpp.so
 Mision_Control: /opt/ros/humble/lib/libfastcdr.so.1.0.29
 Mision_Control: /opt/ros/humble/lib/librmw.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_typesupport_introspection_cpp.so
+Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_cpp.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_introspection_cpp.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_typesupport_introspection_cpp.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_introspection_cpp.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_typesupport_introspection_cpp.so
 Mision_Control: /opt/ros/humble/lib/librosidl_typesupport_introspection_cpp.so
 Mision_Control: /opt/ros/humble/lib/librosidl_typesupport_introspection_c.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_typesupport_cpp.so
+Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_cpp.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_cpp.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_typesupport_cpp.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_cpp.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_typesupport_cpp.so
 Mision_Control: /opt/ros/humble/lib/librosidl_typesupport_cpp.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_generator_py.so
+Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_py.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_generator_py.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_typesupport_c.so
 Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_c.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_c.so
+Mision_Control: /opt/ros/humble/lib/libtf2_msgs__rosidl_generator_c.so
 Mision_Control: /opt/ros/humble/lib/libgeometry_msgs__rosidl_generator_c.so
 Mision_Control: /opt/ros/humble/lib/libstd_msgs__rosidl_generator_c.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_generator_py.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_py.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_typesupport_c.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_c.so
+Mision_Control: /opt/ros/humble/lib/libaction_msgs__rosidl_generator_c.so
 Mision_Control: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_generator_c.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_generator_py.so
+Mision_Control: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_typesupport_c.so
 Mision_Control: /opt/ros/humble/lib/librosidl_typesupport_c.so
 Mision_Control: /opt/ros/humble/lib/librcpputils.so
+Mision_Control: /opt/ros/humble/lib/libunique_identifier_msgs__rosidl_generator_c.so
 Mision_Control: /opt/ros/humble/lib/librosidl_runtime_c.so
 Mision_Control: /opt/ros/humble/lib/librcutils.so
-Mision_Control: /usr/lib/x86_64-linux-gnu/libpython3.10.so
 Mision_Control: CMakeFiles/Mision_Control.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Mision_Control"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Mision_Control"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Mision_Control.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -175,6 +205,6 @@ CMakeFiles/Mision_Control.dir/clean:
 .PHONY : CMakeFiles/Mision_Control.dir/clean
 
 CMakeFiles/Mision_Control.dir/depend:
-	cd /home/irene/cyberwaiter/build/cyberwaiter_mission && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/irene/cyberwaiter/src/cyberwaiter_mission /home/irene/cyberwaiter/src/cyberwaiter_mission /home/irene/cyberwaiter/build/cyberwaiter_mission /home/irene/cyberwaiter/build/cyberwaiter_mission /home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/Mision_Control.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission/CMakeFiles/Mision_Control.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Mision_Control.dir/depend
 

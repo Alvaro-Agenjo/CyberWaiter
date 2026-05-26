@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/irene/cyberwaiter/vision
+CMAKE_SOURCE_DIR = /home/lucia/Escritorio/CyberWaiter/vision
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/irene/cyberwaiter/build/LAyR
+CMAKE_BINARY_DIR = /home/lucia/Escritorio/CyberWaiter/build/LAyR
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,9 +142,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/irene/cyberwaiter/build/LAyR/CMakeFiles /home/irene/cyberwaiter/build/LAyR//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lucia/Escritorio/CyberWaiter/build/LAyR/CMakeFiles /home/lucia/Escritorio/CyberWaiter/build/LAyR//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/irene/cyberwaiter/build/LAyR/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lucia/Escritorio/CyberWaiter/build/LAyR/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/irene/cyberwaiter/src/cyberwaiter_mission
+CMAKE_SOURCE_DIR = /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/irene/cyberwaiter/build/cyberwaiter_mission
+CMAKE_BINARY_DIR = /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission
 
 # Utility rule file for cyberwaiter_mission_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/cyberwaiter_mission_uninstall.dir/compiler_depend.make
 include CMakeFiles/cyberwaiter_mission_uninstall.dir/progress.make
 
 CMakeFiles/cyberwaiter_mission_uninstall:
-	/usr/bin/cmake -P /home/irene/cyberwaiter/build/cyberwaiter_mission/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 cyberwaiter_mission_uninstall: CMakeFiles/cyberwaiter_mission_uninstall
 cyberwaiter_mission_uninstall: CMakeFiles/cyberwaiter_mission_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/cyberwaiter_mission_uninstall.dir/clean:
 .PHONY : CMakeFiles/cyberwaiter_mission_uninstall.dir/clean
 
 CMakeFiles/cyberwaiter_mission_uninstall.dir/depend:
-	cd /home/irene/cyberwaiter/build/cyberwaiter_mission && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/irene/cyberwaiter/src/cyberwaiter_mission /home/irene/cyberwaiter/src/cyberwaiter_mission /home/irene/cyberwaiter/build/cyberwaiter_mission /home/irene/cyberwaiter/build/cyberwaiter_mission /home/irene/cyberwaiter/build/cyberwaiter_mission/CMakeFiles/cyberwaiter_mission_uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/src/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission /home/lucia/Escritorio/CyberWaiter/build/cyberwaiter_mission/CMakeFiles/cyberwaiter_mission_uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cyberwaiter_mission_uninstall.dir/depend
 

@@ -1,5 +1,5 @@
 CMakeFiles/visualizador_c.dir/src/visualizador_c.cpp.o: \
- /home/irene/cyberwaiter/vision/src/visualizador_c.cpp \
+ /home/lucia/Escritorio/CyberWaiter/vision/src/visualizador_c.cpp \
  /usr/include/stdc-predef.h \
  /opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp \
  /usr/include/c++/11/csignal \

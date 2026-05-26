@@ -18,8 +18,13 @@ selected_drink = solara.reactive("Coca Cola")
 qty = solara.reactive(1)
 
 # Diccionario para mapear nombres a IDs (debe coincidir con tu lógica de C++)
-DRINKS = ["Coca Cola", "Fanta Limón"]
-DRINK_TO_ID = {"Coca Cola": 0, "Fanta Limón": 3}
+DRINKS = ["Coca Cola", "Fanta Limón", "Fanta Naranja", "Cerveza"]
+DRINK_TO_ID = {
+    "Coca Cola": 0,
+    "Fanta Limón": 3,
+    "Fanta Naranja": 1,
+    "Cerveza": 4
+}
 
 class SolaraRosNode(Node):
     def __init__(self):

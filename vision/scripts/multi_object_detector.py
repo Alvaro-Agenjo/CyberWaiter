@@ -27,15 +27,27 @@ class MultiObjectDetector(Node):
         
         self.targets = {
             'COCA-COLA': {
-                'img_path': os.path.join(base_path, 'cola-normal.jpg'),
-                'lower_color': np.array([150, 100, 50]), 
-                'upper_color': np.array([179, 255, 255]),
-                'box_color': (0, 255, 0)
+                'img_path': os.path.join(base_path, 'cola-normal-1.jpg'),
+                'lower_color': np.array([0, 100, 100]), 
+                'upper_color': np.array([5, 255, 255]),
+                'box_color': (0, 0, 255)
             },
-            'FANTA': {
+            'FANTA-LIMON': {
                 'img_path': os.path.join(base_path, 'fanta-limon.jpg'),
                 'lower_color': np.array([20, 100, 100]),
                 'upper_color': np.array([35, 255, 255]),
+                'box_color': (0, 0, 255)
+            },
+            'FANTA-NARANJA': {
+                'img_path': os.path.join(base_path, 'fanta-naranja.jpg'),
+                'lower_color': np.array([5, 100, 100]),
+                'upper_color': np.array([15, 255, 255]),
+                'box_color': (0, 0, 255)
+            },
+            'CERVEZA': {
+                'img_path': os.path.join(base_path, 'mahou.jpg'),
+                'lower_color': np.array([87, 114, 0]),
+                'upper_color': np.array([99, 255, 255]),
                 'box_color': (0, 0, 255)
             }
         }

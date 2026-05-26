@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/irene/cyberwaiter/vision
+CMAKE_SOURCE_DIR = /home/lucia/Escritorio/CyberWaiter/vision
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/irene/cyberwaiter/build/LAyR
+CMAKE_BINARY_DIR = /home/lucia/Escritorio/CyberWaiter/build/LAyR
 
 # Utility rule file for LAyR_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/LAyR_uninstall.dir/compiler_depend.make
 include CMakeFiles/LAyR_uninstall.dir/progress.make
 
 CMakeFiles/LAyR_uninstall:
-	/usr/bin/cmake -P /home/irene/cyberwaiter/build/LAyR/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/lucia/Escritorio/CyberWaiter/build/LAyR/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 LAyR_uninstall: CMakeFiles/LAyR_uninstall
 LAyR_uninstall: CMakeFiles/LAyR_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/LAyR_uninstall.dir/clean:
 .PHONY : CMakeFiles/LAyR_uninstall.dir/clean
 
 CMakeFiles/LAyR_uninstall.dir/depend:
-	cd /home/irene/cyberwaiter/build/LAyR && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/irene/cyberwaiter/vision /home/irene/cyberwaiter/vision /home/irene/cyberwaiter/build/LAyR /home/irene/cyberwaiter/build/LAyR /home/irene/cyberwaiter/build/LAyR/CMakeFiles/LAyR_uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lucia/Escritorio/CyberWaiter/build/LAyR && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lucia/Escritorio/CyberWaiter/vision /home/lucia/Escritorio/CyberWaiter/vision /home/lucia/Escritorio/CyberWaiter/build/LAyR /home/lucia/Escritorio/CyberWaiter/build/LAyR /home/lucia/Escritorio/CyberWaiter/build/LAyR/CMakeFiles/LAyR_uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/LAyR_uninstall.dir/depend
 
