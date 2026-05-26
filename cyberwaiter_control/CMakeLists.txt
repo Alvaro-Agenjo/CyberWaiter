@@ -40,9 +40,16 @@ add_executable(gripper src/grip_chat.cpp )
 ament_target_dependencies(gripper
 rclcpp ur_msgs cyberwaiter_msgs) 
 
+add_executable(navigator src/navigator.cpp )
+ament_target_dependencies(navigator
+rclcpp std_msgs geometry_msgs
+orocos_kdl
+cyberwaiter_msgs)
+
 install(TARGETS
   kin_solver
   gripper
+  navigator
   DESTINATION lib/${PROJECT_NAME}
 )
 

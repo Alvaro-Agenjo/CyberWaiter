@@ -1,10 +1,30 @@
 # CyberWaiter
 
-To use the alternative KDL method is necesary to run the following node: ros2 run cyberwaiter_control kin_solver 
+To use the alternative KDL method is necesary to run the following nodes: 
+- ros2 run cyberwaiter_control kin_solver 
+- ros2 run cyberwaiter_control gripper
+- ros2 run cyberwaiter_control navigator
 
-The node is prepared to accept a geometry_msgs/Pose through the topic /gui_bridge/cmd as in the following example:
 
-ros2 topic pub -1 /goals/goal_coord geometry_msgs/msg/Pose "{position: {x: -0.12360693427025358, y: 0.4594488816440156, z: 0.1527464906094069}, orientation: {x: -0.7034602005375664, y: -0.12721179398320612, z: -0.1292500879408832, w: 0.6872083530476731}}"
+# navigator
+
+Presenta distintos tipos de trayectoria para el movimiento del efector fina. Recibe un mensage propio de tipo Movement. Este mensaje contiene un campo point donde se indica la posicion final del movimiento y un campo modo donde se especifica el tipo de trayectoria.
+	- TO_POINT: se mueve al punto indicado sin puntos de paso.
+	- APROX: se mueve al punto final utilizando un punto de paso situado 10 cm por delante del punto punial.
+	-DESPLAZAMIENTO: realiza un movimiento de U invertida elevando el TCP 17 cm por encima de la ubicacion original y final.
+	
+	
+The node is prepared to accept a cyberwaiter_msgs/Movement through the topic /movimiento as in the following examples:
+
+## - TO_POINT:
+ros2 topic pub -1 /movimiento cyberwaiter_msgs/msg/Movement "{point: {position: {x: -0.2789991593758533, y: -0.27384208217651353, z: 0.17388577056763277}, orientation: {x: -0.2699543169297954, y: 0.6680290140952475, z: -0.6933453603863909, w: 0.01158077409177816}}, modo: {data: TO_POINT}}"
+## - APROX: 
+ros2 topic pub -1 /movimiento cyberwaiter_msgs/msg/Movement "{point: {position: {x: -0.0789991593758533, y: -0.47384208217651353, z: 0.32388577056763277}, orientation: {x: -0.3699543169297954, y: 0.6680290140952475, z: -0.6933453603863909, w: 0.01158077409177816}}, modo: {data: APROX}}"
+
+## - DESPLAZAMIENTO:
+	
+	ros2 topic pub -1 /movimiento cyberwaiter_msgs/msg/Movement "{point: {position: {x: 0.0789991593758533, y: -0.57384208217651353, z: 0.08388577056763277}, orientation: {x: -0.3699543169297954, y: 0.6680290140952475, z: -0.6933453603863909, w: 0.01158077409177816}}, modo: {data: DESPLAZAMIENTO}}"
+
 
 
 

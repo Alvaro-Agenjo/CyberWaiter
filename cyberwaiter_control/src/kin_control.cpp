@@ -6,7 +6,6 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include <std_msgs/msg/float64_multi_array.hpp>
 #include "sensor_msgs/msg/joint_state.hpp"
 
 
@@ -25,6 +24,7 @@
 #include "cyberwaiter_msgs/srv/gripper.hpp"
 
 #define vel 0.3
+#define TCP_offset 0.115
 using namespace std::chrono_literals;
 
 class Kinematic_controler : public rclcpp::Node {
@@ -91,24 +91,6 @@ private:
             RCLCPP_ERROR(this->get_logger(), "No se encontró la cadena entre base_link y tool0");
             return;
         }
-
-        // KDL::Frame dynamic_offset(KDL::Rotation::Identity(), KDL::Vector(0.0, 0.0, 0.17));
-        // chain_.addSegment(KDL::Segment(KDL::Joint(KDL::Joint::None), dynamic_offset));
-
-        // // Aseguramos la inicialización explícita del offset en el constructor
-        // KDL::Vector tcp_offset(0.0, 0.0, 0.17); // 170 mm en metros
-
-        // // Forzamos a KDL a entender que los ejes del TCP son idénticos en orientación a tool0
-        // KDL::Rotation tcp_rotation = KDL::Rotation::RPY(0.0, 0.0, 0.0); 
-        // KDL::Frame tcp_frame(tcp_rotation, tcp_offset);
-
-        // KDL::Segment tcp_segment(
-        //     "TCP",
-        //     KDL::Joint(KDL::Joint::None), // Unión rígida
-        //     tcp_frame
-        // );
-
-        // chain_.addSegment(tcp_segment);
 
         fk_solver_ = std::make_shared<KDL::ChainFkSolverPos_recursive>(chain_);
         vik_solver_ = std::make_shared<KDL::ChainIkSolverVel_pinv>(chain_);
@@ -197,19 +179,11 @@ private:
         msg->position.z);
 
     
-        KDL::Frame tool0_deseado = goal * KDL::Frame(KDL::Vector(0.0, 0.0, -0.17));
+        KDL::Frame tool0_deseado = goal * KDL::Frame(KDL::Vector(0.0, 0.0, -TCP_offset)); //
 
         // // 3. Pasamos al solver la pose de tool0_deseado (que mantendrá limpia la cinemática nativa)
         KDL::JntArray target_joints(chain_.getNrOfJoints());
         int ret = ik_solver_->CartToJnt(current_joint_state_, tool0_deseado, target_joints);
-
-    
-    
-    
-        // KDL::JntArray target_joints(chain_.getNrOfJoints());
-        // int ret = ik_solver_->CartToJnt(current_joint_state_, goal, target_joints);
-        
-
 
         // KDL::Frame current_fk_pose;
         // fk_solver_->JntToCart(current_joint_state_, current_fk_pose);
@@ -232,7 +206,9 @@ private:
 
         }
         else{
-            RCLCPP_WARN(this->get_logger(), "No se pudo resolver la cinemática inversa para el objetivo recibido.");
+            RCLCPP_WARN(this->get_logger(), "No se pudo resolver la cinemática inversa para el objetivo recibido. Regresando a home...");
+            std::vector<double> home_positions = {-24.2, -56.03, 80.68, -27.18, -47.22, 161.06};
+            send_goal(home_positions, 1e10);
         }
   }
     
@@ -295,7 +271,7 @@ private:
                 break;
             }
             default:{
-				result = true;
+                result = true;
                 break;
             }
             }
