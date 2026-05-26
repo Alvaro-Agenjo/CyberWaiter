@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 import os
 import math
+from scipy.spatial.transform import Rotation as R
 
 class MultiObjectDetector(Node):
     def __init__(self):
@@ -68,8 +69,18 @@ class MultiObjectDetector(Node):
         # Publishers para la respuesta final (3 valores para posición y 3 para orientación)
         self.pos_final_pub = self.create_publisher(Vector3, '/deteccion/posicion_final', 10)
         self.ori_final_pub = self.create_publisher(Vector3, '/deteccion/orientacion_final', 10)
+        
+        # Suscriptor para la pose real del robot UR3
+        self.robot_pose_sub = self.create_subscription(PoseStamped, '/tcp_pose_broadcaster/pose', self.robot_pose_callback, 10)
+        self.latest_robot_pose = None
+
+        # Publicador de la pose final transformada en la base del robot
+        self.robot_pose_pub = self.create_publisher(PoseStamped, '/deteccion/posicion_robot', 10)
 
         self.get_logger().info("Sistema Bajo Demanda Iniciado. Esperando en /deteccion/objetivo...")
+
+    def robot_pose_callback(self, msg):
+        self.latest_robot_pose = msg
 
     def target_callback(self, msg):
         target_name = msg.data.upper()
@@ -195,6 +206,72 @@ class MultiObjectDetector(Node):
                         ori_msg = Vector3()
                         ori_msg.x, ori_msg.y, ori_msg.z = f_roll, f_pitch, f_yaw
                         self.ori_final_pub.publish(ori_msg)
+                        
+                        # ==========================================
+                        # TRANSFORMACIÓN DE COORDENADAS EYE-IN-HAND
+                        # ==========================================
+                        try:
+                            # 1. Posición y Rotación en el frame de la cámara
+                            p_cam = np.array([f_x, f_y, f_z])
+                            r_cam = R.from_quat([f_qx, f_qy, f_qz, f_qw])
+                            
+                            # 2. Transformar al frame del gripper (tool0) usando nuestra calibración de Park
+                            t_c2g = np.array([0.09364, 0.00474, -0.13818])
+                            q_c2g = [-0.00842, -0.00668, -0.55121, 0.83430]
+                            r_c2g = R.from_quat(q_c2g)
+                            
+                            p_tool = r_c2g.apply(p_cam) + t_c2g
+                            r_tool = r_c2g * r_cam
+                            
+                            # 3. Si tenemos la pose real del robot, transformar al frame de la base (base_link)
+                            if self.latest_robot_pose is not None:
+                                t_g2b = np.array([
+                                    self.latest_robot_pose.pose.position.x,
+                                    self.latest_robot_pose.pose.position.y,
+                                    self.latest_robot_pose.pose.position.z
+                                ])
+                                q_g2b = [
+                                    self.latest_robot_pose.pose.orientation.x,
+                                    self.latest_robot_pose.pose.orientation.y,
+                                    self.latest_robot_pose.pose.orientation.z,
+                                    self.latest_robot_pose.pose.orientation.w
+                                ]
+                                r_g2b = R.from_quat(q_g2b)
+                                
+                                p_base = r_g2b.apply(p_tool) + t_g2b
+                                r_base = r_g2b * r_tool
+                                q_base = r_base.as_quat()
+                                
+                                # Publicar en topic de test
+                                robot_pose_msg = PoseStamped()
+                                robot_pose_msg.header.stamp = self.get_clock().now().to_msg()
+                                robot_pose_msg.header.frame_id = "base_link"
+                                robot_pose_msg.pose.position.x = p_base[0]
+                                robot_pose_msg.pose.position.y = p_base[1]
+                                robot_pose_msg.pose.position.z = p_base[2]
+                                robot_pose_msg.pose.orientation.x = q_base[0]
+                                robot_pose_msg.pose.orientation.y = q_base[1]
+                                robot_pose_msg.pose.orientation.z = q_base[2]
+                                robot_pose_msg.pose.orientation.w = q_base[3]
+                                self.robot_pose_pub.publish(robot_pose_msg)
+                                
+                                # Limitar log a una vez por segundo
+                                now_sec = self.get_clock().now().nanoseconds / 1e9
+                                if not hasattr(self, 'last_verify_log_time') or (now_sec - self.last_verify_log_time) >= 1.0:
+                                    self.last_verify_log_time = now_sec
+                                    self.get_logger().info(
+                                        f"🎯 [VERIFICACIÓN] {name} detectada!\n"
+                                        f"   -> EN CÁMARA (camera_color_optical_frame): X={f_x:.4f}, Y={f_y:.4f}, Z={f_z:.4f}\n"
+                                        f"   -> EN ROBOT BASE (base_link):               X={p_base[0]:.4f}, Y={p_base[1]:.4f}, Z={p_base[2]:.4f}"
+                                    )
+                            else:
+                                # Log si no hay pose de robot
+                                now_sec = self.get_clock().now().nanoseconds / 1e9
+                                if not hasattr(self, 'last_verify_log_time') or (now_sec - self.last_verify_log_time) >= 1.0:
+                                    self.last_verify_log_time = now_sec
+                                    self.get_logger().warn("⚠️ Esperando pose del robot en /tcp_pose_broadcaster/pose...")
+                        except Exception as e:
+                            self.get_logger().error(f"Error al transformar pose: {e}")
                         
                         is_stable = True
 
