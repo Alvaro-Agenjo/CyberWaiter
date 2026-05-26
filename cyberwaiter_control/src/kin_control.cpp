@@ -23,6 +23,7 @@
 
 #include "cyberwaiter_msgs/srv/gripper.hpp"
 
+#define deg2rad(x) ((x)*M_PI/180.0)
 #define vel 0.3
 #define TCP_offset 0.115
 using namespace std::chrono_literals;
@@ -130,7 +131,7 @@ private:
         }
 
         ik_solver_ = std::make_shared<KDL::ChainIkSolverPos_NR_JL>(
-            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 1000, 1e-4);
+            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 3000, 1e-4);
 
         kdl_initialized_ = true;
         RCLCPP_INFO(this->get_logger(), "KDL inicializado correctamente con el URDF del sistema.");
@@ -207,8 +208,13 @@ private:
         }
         else{
             RCLCPP_WARN(this->get_logger(), "No se pudo resolver la cinemática inversa para el objetivo recibido. Regresando a home...");
-            std::vector<double> home_positions = {-24.2, -56.03, 80.68, -27.18, -47.22, 161.06};
-            send_goal(home_positions, 1e10);
+            // std::vector<double> home_positions = {deg2rad(-24.2), deg2rad(-56.03), deg2rad(80.68), deg2rad(-27.18), deg2rad(-47.22), deg2rad(161.06)};
+            std::vector<double> home_positions = {deg2rad(0.45), deg2rad(-83.47), deg2rad(72.36), deg2rad(4.57), deg2rad(-19.63), deg2rad(165.12)};
+            send_goal(home_positions, 3);
+
+            auto msg = std_msgs::msg::String();
+            msg.data = "NOK";
+            movement_state->publish(msg);
         }
   }
     
