@@ -70,20 +70,22 @@ private:
         static bool ignore_next = false;
         if(msg->data == "NOK"){
             RCLCPP_ERROR(this->get_logger(), "[Navigator] respuesta del solver 'FALLO', pose no alcanzada.");
-            goals.clear(); 
+            goals.clear();
+            in_progress_ = false;
             return;
         }
         else if (msg->data == "RETRY"){
             ignore_next = true;
-            goals.clear();
             RCLCPP_ERROR(this->get_logger(), "[Navigator] respuesta del solver 'RETRY', reintentando desde escape...");
-            state_pub_->publish(std_msgs::msg::String().set__data("RETRY"));
             return;
         }
         else if(msg->data == "OK"){
             if (ignore_next) {
                 RCLCPP_ERROR(this->get_logger(), "[Navigator] [DEBUG] ignoring escape ok.");
                 ignore_next = false;
+                in_progress_ = false;
+                goals.clear();
+                state_pub_->publish(std_msgs::msg::String().set__data("RETRY"));
                 return;
             }
             RCLCPP_INFO(this->get_logger(), "[Navigator] respuesta del solver 'COMPLETADO', pose alcanzada.");
@@ -98,6 +100,7 @@ private:
         if(goals.size() == 0){
             RCLCPP_INFO(this->get_logger(), "[Navigator] Secuencia completada, notificando");
             state_pub_->publish(std_msgs::msg::String().set__data("OK"));
+            in_progress_ = false;
 
             if (gripper != 0){
                 RCLCPP_INFO(this->get_logger(), "[Navigator] Ejecutando acción de pinza: %d", gripper);
@@ -112,7 +115,7 @@ private:
     }
     void command_callback(const cyberwaiter_msgs::msg::Movement::SharedPtr msg) {
         
-        if (goals.size() > 0) {
+        if (in_progress_) {
             RCLCPP_INFO(this->get_logger(), "Acceso denegado, tarea en proceso ...");
             return; //Ignorar comando si se está ejecutando otro movimiento
         }
@@ -125,6 +128,7 @@ private:
         //Analisis de comando recibido
         if(msg->modo.data == "TO_POINT"){
             RCLCPP_INFO(this->get_logger(), "[Navigator]Comando recibido: TO_POINT");
+            in_progress_ = true;
             coordinate_pub_->publish(msg->point);
         }
         else if(msg->modo.data == "APROX"){
@@ -137,6 +141,7 @@ private:
             RCLCPP_INFO(this->get_logger(), "[Navigator] Pt aproximación: x: %f, y: %f, z: %f", goals.front().p.x(), goals.front().p.y(), goals.front().p.z());
             RCLCPP_INFO(this->get_logger(), "[Navigator] Pt objetivo: x: %f, y: %f, z: %f", goals.back().p.x(), goals.back().p.y(), goals.back().p.z());
 
+            in_progress_ = true;
             send_goal(goals.front());
         }
         else if(msg->modo.data == "DESPLAZAMIENTO"){
@@ -147,6 +152,7 @@ private:
             goals.push_front(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h)) * goal);
             goals.push_front(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h)) * TCP_);
 
+            in_progress_ = true;
             send_goal(goals.front());
         }
         else{
@@ -192,6 +198,7 @@ private:
 
     int idle = true;
     int gripper = 0; //1: cerrado, -1: abierto, 0: no action
+    bool in_progress_ = false; //Flag para evitar nuevos comandos mientras se procesa uno
     KDL::Frame TCP_;
     std::deque<KDL::Frame> goals;
 
