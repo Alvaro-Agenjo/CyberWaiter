@@ -23,7 +23,7 @@ The node is prepared to accept a cyberwaiter_msgs/Movement through the topic /mo
 	ros2 topic pub -1 /movimiento cyberwaiter_msgs/msg/Movement "{point: {position: {x: -0.1789991593758533, y: -0.47384208217651353, z: 0.12388577056763277}, orientation: {x: -0.3699543169297954, y: 0.6680290140952475, z: -0.6933453603863909, w: 0.01158077409177816}}, modo: {data: APROX}, gripper_close: 0}"
 
 ## - DESPLAZAMIENTO:	
-	ros2 topic pub -1 /movimiento cyberwaiter_msgs/msg/Movement "{point: {position: {x: 0.0789991593758533, y: -0.57384208217651353, z: 0.08388577056763277}, orientation: {x: -0.3699543169297954, y: 0.6680290140952475, z: -0.6933453603863909, w: 0.01158077409177816}}, modo: {data: DESPLAZAMIENTO}, gripper_close: 1-}"
+	ros2 topic pub -1 /movimiento cyberwaiter_msgs/msg/Movement "{point: {position: {x: 0.0789991593758533, y: -0.37384208217651353, z: 0.08388577056763277}, orientation: {x: -0.3699543169297954, y: 0.6680290140952475, z: -0.6933453603863909, w: 0.01158077409177816}}, modo: {data: DESPLAZAMIENTO}, gripper_close: -1}"
 
 
 # gripper
