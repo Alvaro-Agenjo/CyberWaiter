@@ -115,7 +115,7 @@ class MisionController : public rclcpp::Node{
 		// 	logic();
 		// }
 		void MovementCallback(const std_msgs::msg::String::SharedPtr msg){
-			bool first_attempt = true;
+			static bool first_attempt = true;
 			if (msg->data == "OK"){
 				RCLCPP_INFO(this->get_logger(), "[Mision Control] Movimiento completado con exito");
 				logic();
@@ -250,11 +250,7 @@ class MisionController : public rclcpp::Node{
 				auto state_msg = std_msgs::msg::String();
 				state_msg.data = "Entregando item";
 				publisher_state_->publish(state_msg);
-/* **********************************************************************************************************************************************
-*************************************************************************************************************************************************
-*************************************************************************************************************************************************
-*************************************************************************************************************************************************
-************************************************************************************************************************************************/
+
 				auto coord_msg = cyberwaiter_msgs::msg::Movement();
 				coord_msg.point = bandeja_;
 
@@ -281,7 +277,7 @@ class MisionController : public rclcpp::Node{
 
 				auto coord_msg = cyberwaiter_msgs::msg::Movement();
 				coord_msg.point = home_;
-				coord_msg.modo.data = "TO_POINT";
+				coord_msg.modo.data = "DESPLAZAMIENTO";
 				coord_msg.gripper_close = 0;
 				publisher_coordinates_->publish(coord_msg);
 				estado_actual_ = Estado::PROCESSING_ORDER;
