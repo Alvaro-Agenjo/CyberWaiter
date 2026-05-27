@@ -22,10 +22,11 @@
 #include "std_msgs/msg/int8.hpp"
 #include "std_msgs/msg/int8_multi_array.hpp"
 
-#include "geometry_msgs/msg/pose.hpp"
+// #include "geometry_msgs/msg/pose.hpp"
 // #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/vector3.hpp"
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include "cyberwaiter_msgs/msg/movement.hpp"
 
 //Own libs
 #include "Types.h"
@@ -50,23 +51,24 @@ class MisionController : public rclcpp::Node{
 			publisher_identification_reference_ = this->create_publisher<std_msgs::msg::String>("identification_reference", 10);
 			subscriber_goal_pose_ = this->create_subscription<geometry_msgs::msg::Vector3>("/deteccion/posicion_final", 10,
 				std::bind(&MisionController::GoalPoseCallback, this, std::placeholders::_1));
-			subscriber_goal_orientation_ = this->create_subscription<geometry_msgs::msg::Vector3>("/deteccion/orientacion_final", 10,
-				std::bind(&MisionController::GoalOrientationCallback, this, std::placeholders::_1));
+			// subscriber_goal_orientation_ = this->create_subscription<geometry_msgs::msg::Vector3>("/deteccion/orientacion_final", 10,
+			// 	std::bind(&MisionController::GoalOrientationCallback, this, std::placeholders::_1));
 
 
-			publisher_coordinates_ = this->create_publisher<geometry_msgs::msg::Pose>("coordinates", 10);
-			subscriber_movement_state_ = this->create_subscription<std_msgs::msg::String>("movement_state", 10,
+			publisher_coordinates_ = this->create_publisher<cyberwaiter_msgs::msg::Movement>("/movimiento", 10);
+			subscriber_movement_state_ = this->create_subscription<std_msgs::msg::String>("/movement_state", 10,
 				std::bind(&MisionController::MovementCallback, this, std::placeholders::_1)); 
 
 			
 			_watchdog = this->create_wall_timer(TIMEOUT, std::bind(&MisionController::timeout, this));
 			_watchdog->cancel();
 
-			/*****************************************************************************************************************************
-			 * ***************************************************************************************************************************
-			 * bandeja_.x = 1; bandeja_.y = 1; bandeja_.z = 0;
-			 * home_.x = 0; home_.y = 2; home_.z = 0;
-			 * **************************************************************************************************************************/
+			bandeja_.position.x =  0.21087346633307502; bandeja_.position.y = -0.45922171813440504; bandeja_.position.z = 0.06746603759115141;
+			bandeja_.orientation.x = -0.5587809221483487; bandeja_.orientation.y = 0.45135463268752124; bandeja_.orientation.z = -0.5991390364746974; bandeja_.orientation.w = 0.3536598529190517;
+			
+			home_.position.x = -0.2790011187404149; home_.position.y = -0.1738465428383369; home_.position.z = 0.17388733559498376;
+			home_.orientation.x = -0.26994772496344116; home_.orientation.y = 0.6680276858064119; home_.orientation.z = -0.6933493761679329; home_.orientation.w = 0.011570624474531195;
+			
 		}
 
 	private:
@@ -89,53 +91,63 @@ class MisionController : public rclcpp::Node{
 		}
 		void GoalPoseCallback(const geometry_msgs::msg::Vector3::SharedPtr msg){
 			if (estado_actual_ != Estado::IDENTIFICATION) return;
-
-			// if(msg->x == 0 && msg->y == 0 && msg->z == 0){
-			// 	RCLCPP_INFO(this->get_logger(), "No se ha encontrado la bebida solicitada, saltando pedido");
-			// 	logic(-1);
-			// 	logic();
-			// 	return;
-			// }
+			RCLCPP_INFO(this->get_logger(), "[Mision Control] Coordenadas de objetivo recibidas");
+			
 			destino_.position.x = msg->x;
 			destino_.position.y = msg->y;
 			destino_.position.z = msg->z;
 
 			logic();
 		}
-		void GoalOrientationCallback(const geometry_msgs::msg::Vector3::SharedPtr msg){
-			if (estado_actual_ != Estado::IDENTIFICATION) return;
+		// void GoalOrientationCallback(const geometry_msgs::msg::Vector3::SharedPtr msg){
+		// 	if (estado_actual_ != Estado::IDENTIFICATION) return;
 
-			tf2::Quaternion q;
-			q.setRPY(rad2deg(msg->x), rad2deg(msg->y), rad2deg(msg->z));
-			q.normalize();
-			geometry_msgs::msg::Quaternion q_msg = tf2::toMsg(q);
-			destino_.orientation = q_msg;
+		// 	tf2::Quaternion q;
+		// 	q.setRPY(rad2deg(msg->x), rad2deg(msg->y), rad2deg(msg->z));
+		// 	q.normalize();
+		// 	geometry_msgs::msg::Quaternion q_msg = tf2::toMsg(q);
+		// 	destino_.orientation = q_msg;
 
-			logic();
-		}
+		// 	logic();
+		// }
 		void MovementCallback(const std_msgs::msg::String::SharedPtr msg){
-			if(estado_actual_ == Estado::RETRIEVING_ITEM  && msg->data == "OK"){
+			if (msg->data == "OK"){
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Movimiento completado con exito");
 				logic();
 			}
-			else if(estado_actual_ == Estado::DELIVERING_ITEM && msg->data == "OK"){
-				logic();
-			}
-			else if(estado_actual_ == Estado::PROCESSING_ORDER &&  msg->data == "OK"){
-				logic();
-			}
-			else{
-				RCLCPP_INFO(this->get_logger(), "Estado de movimiento recibido: %s", msg->data.c_str());
+			else if (msg->data == "NOK"){
+				RCLCPP_ERROR(this->get_logger(), "[Mision Control] Movimiento fallido, abortando ...");
 				logic(-1);
 			}
+			else if (msg->data == "RETRY"){
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Movimiento fallido reintentando...");
+				switch (estado_actual_){
+					case Estado::RETRIEVING_ITEM:{
+						estado_actual_ = Estado::IDENTIFICATION;
+						break;
+					}
+					case Estado::DELIVERING_ITEM:{
+						estado_actual_ = Estado::RETRIEVING_ITEM;
+						break;
+					}
+					case Estado::PROCESSING_ORDER:{
+						estado_actual_ = Estado::DELIVERING_ITEM;
+						break;
+					}
+				}
+				logic();
+			}
 		}
+
 		void logic( int results = 0){
 			switch (estado_actual_){
 			case Estado::IDLE:{
-				RCLCPP_INFO(this->get_logger(), "Pedidio recibido"); 
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Pedido recibido"); 
 				estado_actual_ = Estado::PROCESSING_ORDER;
 				break;
 			}
 			case Estado::PROCESSING_ORDER:{
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] PROCESING ORDER...");
 				//Hay mas latas que procesar
 				if (counter_pedido == pedido.size()){
 
@@ -143,7 +155,7 @@ class MisionController : public rclcpp::Node{
 					//No
 					auto state_msg = std_msgs::msg::String();
 					state_msg.data = "Finish";
-					RCLCPP_INFO(this->get_logger(), "Retire su pedido"); 
+					RCLCPP_INFO(this->get_logger(), "[Mision Control] Pedido completado. Retire su pedido"); 
 					publisher_state_->publish(state_msg);
 
 					estado_actual_ = Estado::IDLE;
@@ -152,11 +164,11 @@ class MisionController : public rclcpp::Node{
 				//SI 
 
 				//Informamos a la GUI de que hemos cambiado de estado
-				RCLCPP_INFO(this->get_logger(), "Procesando Pedido [ %d / %d ]", counter_pedido+1, (int)pedido.size()); 
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Procesando Pedido [ %d / %d ]", counter_pedido+1, (int)pedido.size()); 
 				
 				auto state_msg = std_msgs::msg::String();
 				state_msg.data = "Buscando item";
-				RCLCPP_INFO(this->get_logger(), "Localizando Item"); 
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Localizando Item"); 
 				publisher_state_->publish(state_msg);
 				
 				//Envio dato a reconocimiento
@@ -165,11 +177,17 @@ class MisionController : public rclcpp::Node{
 					case 0:
 						id_msg.data = "COCA-COLA";
 						break;
-					case 3:
-						id_msg.data = "FANTA";
+					case 1:
+						id_msg.data = "FANTA-NARANJA";
 						break;
 					case 2:
 						id_msg.data = "Agua";
+						break;
+					case 3:
+						id_msg.data = "FANTA-LIMON";
+						break;
+					case 4:
+						id_msg.data = "CERVEZA";
 						break;
 				}
 				publisher_identification_reference_->publish(id_msg);
@@ -180,48 +198,50 @@ class MisionController : public rclcpp::Node{
 				break;
 			}
 			case Estado::IDENTIFICATION:{
-				static int counter = 0;
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] IDENTIFICACION ...");
 				if (results == -1){
-					estado_actual_ = Estado::PROCESSING_ORDER;
+					RCLCPP_WARN(this->get_logger(), "[Mision Control] Fallo en identificación. Pasando al siguiente elemento del pedido.");					estado_actual_ = Estado::PROCESSING_ORDER;
 					logic();
 					break;
 				}
-
-				if (counter < 1) {
-					RCLCPP_INFO(this->get_logger(), "Esperando resultado de identificación...");
-					counter++;
-					_watchdog->cancel();
-					return;
-				}
 				
-				RCLCPP_INFO(this->get_logger(), "Objetivo localizado"); 
-				counter = 0;
+				_watchdog->cancel();
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Objetivo localizado"); 
+				
 				auto state_msg = std_msgs::msg::String();
 				state_msg.data = "Recogiendo item";
-				RCLCPP_INFO(this->get_logger(), "Recogiendo Item"); 
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Recogiendo Item"); 
 				publisher_state_->publish(state_msg);
 
-				auto coord_msg = geometry_msgs::msg::Pose();
-				coord_msg = destino_;
+				auto coord_msg = cyberwaiter_msgs::msg::Movement();
+				coord_msg.point = destino_;
+				coord_msg.modo.data = "APROX";
+				coord_msg.gripper_close = 1;
 				publisher_coordinates_->publish(coord_msg);
 				estado_actual_ = Estado::RETRIEVING_ITEM;
 				break;
 			}
 			case Estado::RETRIEVING_ITEM:{
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] RETRIEVING ITEM ...");
 				if(results == -1) break;
-				RCLCPP_INFO(this->get_logger(), "Desplazando a punto de recogida"); 
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] Desplazando a punto de recogida"); 
 
 				auto state_msg = std_msgs::msg::String();
 				state_msg.data = "Entregando item";
 				publisher_state_->publish(state_msg);
 
-				auto coord_msg = geometry_msgs::msg::Pose();
-				coord_msg = bandeja_;
+				auto coord_msg = cyberwaiter_msgs::msg::Movement();
+				coord_msg.point = bandeja_;
+
+				coord_msg.point.position.y = bandeja_.position.y - 0.1 * (counter_pedido - 1);
+				coord_msg.modo.data = "DESPLAZAMIENTO";
+				coord_msg.gripper_close = -1;
 				publisher_coordinates_->publish(coord_msg);
 				estado_actual_ = Estado::DELIVERING_ITEM;
 				break;
 			}
 			case Estado::DELIVERING_ITEM:{
+				RCLCPP_INFO(this->get_logger(), "[Mision Control] DELIVERING ITEM ...");
 				if(results == -1) break;
 				RCLCPP_INFO(this->get_logger(), "Bebida servida"); 
 
@@ -229,8 +249,10 @@ class MisionController : public rclcpp::Node{
 				state_msg.data = "Next";
 				publisher_state_->publish(state_msg);
 
-				auto coord_msg = geometry_msgs::msg::Pose();
-				coord_msg = home_;
+				auto coord_msg = cyberwaiter_msgs::msg::Movement();
+				coord_msg.point = home_;
+				coord_msg.modo.data = "TO_POINT";
+				coord_msg.gripper_close = 0;
 				publisher_coordinates_->publish(coord_msg);
 				estado_actual_ = Estado::PROCESSING_ORDER;
 				break;
@@ -240,7 +262,7 @@ class MisionController : public rclcpp::Node{
 			}
 		}
 		void timeout(){
-			RCLCPP_INFO(this->get_logger(), "No se ha encontrado la bebida solicitada, saltando pedido");
+			RCLCPP_INFO(this->get_logger(), "[Mision Control] Limite de tiempo alcanzado, deteccion dada por erronea");
 			_watchdog->cancel();
 
 			auto state_msg = std_msgs::msg::String();
@@ -250,16 +272,6 @@ class MisionController : public rclcpp::Node{
 			logic(-1);
 		}
 	
-	// void timer_callback()
-	// 	{
-	// 	auto message = std_msgs::msg::String();
-	// 	message.data = "Buenos días señor, han pasado " + std::to_string(count_++) + " días desde su última visita";
-	// 	RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
-	// 	publisher_->publish(message);
-	// 	}
-
-
-
 		// Otras variables miembro
 		Estado estado_actual_ = Estado::IDLE;
 		std::vector<int> pedido;
@@ -273,12 +285,12 @@ class MisionController : public rclcpp::Node{
 		// Publicadores
 		rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_state_;
 		rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_identification_reference_;
-		rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr publisher_coordinates_;
+		rclcpp::Publisher<cyberwaiter_msgs::msg::Movement>::SharedPtr publisher_coordinates_;
 		
 		// Suscriptores
 		rclcpp::Subscription<std_msgs::msg::Int8MultiArray>::SharedPtr subscriber_GUI_;
 		rclcpp::Subscription<geometry_msgs::msg::Vector3>::SharedPtr subscriber_goal_pose_;
-		rclcpp::Subscription<geometry_msgs::msg::Vector3>::SharedPtr subscriber_goal_orientation_;
+		// rclcpp::Subscription<geometry_msgs::msg::Vector3>::SharedPtr subscriber_goal_orientation_;
 		rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscriber_movement_state_;
 		
 		// Servicios
