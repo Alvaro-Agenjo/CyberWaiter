@@ -17,6 +17,8 @@
 #include "cyberwaiter_msgs/srv/gripper.hpp"
 
 #define plane_h 0.17
+#define clear_x -0.1
+#define clear_y -0.2
 
 using namespace std::chrono_literals;
 
@@ -150,8 +152,41 @@ private:
             goals.push_back(goal);
             
             goals.push_front(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h)) * goal);
+            KDL::Frame tmp = KDL::Frame(KDL::Vector(-0.02, -0.3, plane_h));
+            tmp.M = goal.M;
+            goals.push_front(tmp);
             goals.push_front(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h)) * TCP_);
 
+            in_progress_ = true;
+            send_goal(goals.front());
+        }
+        else if(msg->modo.data == "HOME"){
+
+            RCLCPP_INFO(this->get_logger(), "[Navigator] Comando recibido: HOME");
+            
+            
+            goals.push_back(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h*0.75)) * TCP_);
+
+            KDL::Frame tmp = goals.back();
+            tmp.p.y(-0.48922171813440504);
+            goals.push_back(tmp);
+
+
+            tmp.p.x(0.02);
+            tmp.p.y(-0.37);
+            
+            goals.push_back(tmp);
+
+
+            tmp.p.x(-0.12);
+            tmp.M = goal.M;
+            goals.push_back(tmp);
+
+            tmp.p.x(goal.p.x());
+            goals.push_back(tmp);
+
+            goals.push_back(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h*0.75)) * goal);
+            goals.push_back(goal);
             in_progress_ = true;
             send_goal(goals.front());
         }
