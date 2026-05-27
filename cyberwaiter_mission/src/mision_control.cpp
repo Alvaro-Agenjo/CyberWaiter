@@ -97,6 +97,10 @@ class MisionController : public rclcpp::Node{
 			destino_.position.y = msg->y;
 			destino_.position.z = msg->z;
 
+			tf2::Quaternion q(0.12765878198321853, -0.7040936080801736, 0.6873091932609388, 0.12474573861339583);
+			q.normalize();
+			destino_.orientation = tf2::toMsg(q);
+
 			logic();
 		}
 		// void GoalOrientationCallback(const geometry_msgs::msg::Vector3::SharedPtr msg){
@@ -111,9 +115,11 @@ class MisionController : public rclcpp::Node{
 		// 	logic();
 		// }
 		void MovementCallback(const std_msgs::msg::String::SharedPtr msg){
+			bool first_attempt = true;
 			if (msg->data == "OK"){
 				RCLCPP_INFO(this->get_logger(), "[Mision Control] Movimiento completado con exito");
 				logic();
+				first_attempt = true;
 			}
 			else if (msg->data == "NOK"){
 				RCLCPP_ERROR(this->get_logger(), "[Mision Control] Movimiento fallido, abortando ...");
@@ -121,6 +127,14 @@ class MisionController : public rclcpp::Node{
 			}
 			else if (msg->data == "RETRY"){
 				RCLCPP_INFO(this->get_logger(), "[Mision Control] Movimiento fallido reintentando...");
+				//Si ya ha reintentado una vez, pasamos al siguiente item del pedido
+				if (!first_attempt){
+					RCLCPP_ERROR(this->get_logger(), "[Mision Control] Movimiento fallido, abortando ...");
+					logic(-1);
+					return;
+				}
+
+				// Si es la primera se reintenta
 				switch (estado_actual_){
 					case Estado::RETRIEVING_ITEM:{
 						estado_actual_ = Estado::IDENTIFICATION;
@@ -136,6 +150,7 @@ class MisionController : public rclcpp::Node{
 					}
 				}
 				logic();
+				first_attempt = false;
 			}
 		}
 
@@ -200,7 +215,8 @@ class MisionController : public rclcpp::Node{
 			case Estado::IDENTIFICATION:{
 				RCLCPP_INFO(this->get_logger(), "[Mision Control] IDENTIFICACION ...");
 				if (results == -1){
-					RCLCPP_WARN(this->get_logger(), "[Mision Control] Fallo en identificación. Pasando al siguiente elemento del pedido.");					estado_actual_ = Estado::PROCESSING_ORDER;
+					RCLCPP_WARN(this->get_logger(), "[Mision Control] Fallo en identificación. Pasando al siguiente elemento del pedido.");					
+					estado_actual_ = Estado::PROCESSING_ORDER;
 					logic();
 					break;
 				}
@@ -223,13 +239,22 @@ class MisionController : public rclcpp::Node{
 			}
 			case Estado::RETRIEVING_ITEM:{
 				RCLCPP_INFO(this->get_logger(), "[Mision Control] RETRIEVING ITEM ...");
-				if(results == -1) break;
+				if(results == -1) {
+					RCLCPP_WARN(this->get_logger(), "[Mision Control] Fallo en recogida. Pasando al siguiente elemento del pedido.");					
+					estado_actual_ = Estado::PROCESSING_ORDER;
+					logic();
+					break;
+				}
 				RCLCPP_INFO(this->get_logger(), "[Mision Control] Desplazando a punto de recogida"); 
 
 				auto state_msg = std_msgs::msg::String();
 				state_msg.data = "Entregando item";
 				publisher_state_->publish(state_msg);
-
+/* **********************************************************************************************************************************************
+*************************************************************************************************************************************************
+*************************************************************************************************************************************************
+*************************************************************************************************************************************************
+************************************************************************************************************************************************/
 				auto coord_msg = cyberwaiter_msgs::msg::Movement();
 				coord_msg.point = bandeja_;
 
@@ -242,7 +267,12 @@ class MisionController : public rclcpp::Node{
 			}
 			case Estado::DELIVERING_ITEM:{
 				RCLCPP_INFO(this->get_logger(), "[Mision Control] DELIVERING ITEM ...");
-				if(results == -1) break;
+				if(results == -1) {
+					RCLCPP_WARN(this->get_logger(), "[Mision Control] Fallo en entrega. Pasando al siguiente elemento del pedido.");					
+					estado_actual_ = Estado::PROCESSING_ORDER;
+					logic();
+					break;
+				}
 				RCLCPP_INFO(this->get_logger(), "Bebida servida"); 
 
 				auto state_msg = std_msgs::msg::String();
