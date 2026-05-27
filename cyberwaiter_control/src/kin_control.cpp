@@ -254,33 +254,33 @@ private:
 
     void result_callback(const GoalHandleFollowJointTrajectory::WrappedResult & result) {
         switch (result.code) {
-        case rclcpp_action::ResultCode::SUCCEEDED:{
-            RCLCPP_INFO(this->get_logger(), "¡Movimiento completado con éxito!");
+            case rclcpp_action::ResultCode::SUCCEEDED:{
+                RCLCPP_INFO(this->get_logger(), "¡Movimiento completado con éxito!");
+                
+                auto msg = std_msgs::msg::String();
+                msg.data = "OK";
+                movement_state->publish(msg);              
+                break;
+            }
+            case rclcpp_action::ResultCode::ABORTED:{
+                RCLCPP_ERROR(this->get_logger(), "El movimiento fue abortado");
             
-            auto msg = std_msgs::msg::String();
-            msg.data = "OK";
-            movement_state->publish(msg);              
-            break;
-        }
-        case rclcpp_action::ResultCode::ABORTED:{
-            RCLCPP_ERROR(this->get_logger(), "El movimiento fue abortado");
-        
-            auto msg = std_msgs::msg::String();
-            msg.data = "NOK";
-            movement_state->publish(msg);
-            return;
-        }
-        case rclcpp_action::ResultCode::CANCELED:{
-	    RCLCPP_ERROR(this->get_logger(), "El movimiento fue cancelado");
-	    
-	    auto msg = std_msgs::msg::String();
-            msg.data = "NOK";
-            movement_state->publish(msg);           
-            return;
-        }
+                auto msg = std_msgs::msg::String();
+                msg.data = "NOK";
+                movement_state->publish(msg);
+                break;
+            }
+            case rclcpp_action::ResultCode::CANCELED:{
+                RCLCPP_ERROR(this->get_logger(), "El movimiento fue cancelado");
+            
+                auto msg = std_msgs::msg::String();
+                msg.data = "NOK";
+                movement_state->publish(msg);           
+                break;
+            }
         default:
             RCLCPP_ERROR(this->get_logger(), "Código de resultado desconocido");
-            return;
+            break;
         }
     }
     

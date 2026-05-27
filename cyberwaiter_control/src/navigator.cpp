@@ -65,6 +65,8 @@ private:
 
     }
     void kin_report_callback(const std_msgs::msg::String::SharedPtr msg){
+
+        //std::this_thread::sleep_for(std::chrono::milliseconds(2000)); 
         static bool ignore_next = false;
         if(msg->data == "NOK"){
             RCLCPP_ERROR(this->get_logger(), "[Navigator] respuesta del solver 'FALLO', pose no alcanzada.");
