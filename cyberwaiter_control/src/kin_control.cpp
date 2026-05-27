@@ -182,12 +182,13 @@ private:
 
         // RCLCPP_INFO(this->get_logger(), "Pose actual FK: X:%.3f Y:%.3f Z:%.3f", 
         //             current_fk_pose.p.x(), current_fk_pose.p.y(), current_fk_pose.p.z());
-        RCLCPP_INFO(this->get_logger(), "Pose objetivo: X:%.3f Y:%.3f Z:%.3f", 
+        RCLCPP_INFO(this->get_logger(), "[Kin Solver] Objetivo recibido desde 'NAVIGATOR': X:%.3f Y:%.3f Z:%.3f", 
                     goal.p.x(), goal.p.y(), goal.p.z());
-        RCLCPP_INFO(this->get_logger(), "Pose objetivo: X:%.3f Y:%.3f Z:%.3f", 
+        RCLCPP_INFO(this->get_logger(), "[Kin Solver] Pose de la muñeca tras compensar TCP: X:%.3f Y:%.3f Z:%.3f", 
                     tool0_deseado.p.x(), tool0_deseado.p.y(), tool0_deseado.p.z());
         
         if (ret >= 0) {
+            RCLCPP_INFO(this->get_logger(), "[Kin Solver] Solución encontrada, enviando orden...");
             std::vector<double> target_positions(target_joints.rows());
             for (size_t i = 0; i < target_joints.rows(); ++i) {
                 target_positions[i] = target_joints(i);
@@ -198,13 +199,13 @@ private:
 
         }
         else{
-            RCLCPP_WARN(this->get_logger(), "No se pudo resolver la cinemática inversa para el objetivo recibido. Regresando a home...");
+            RCLCPP_WARN(this->get_logger(), "[Kin Solver] [ERROR IK] No se pudo resolver la cinemática inversa para el objetivo recibido. Posicion de escape...");
             // std::vector<double> home_positions = {deg2rad(-24.2), deg2rad(-56.03), deg2rad(80.68), deg2rad(-27.18), deg2rad(-47.22), deg2rad(161.06)};
             std::vector<double> home_positions = {deg2rad(0.45), deg2rad(-83.47), deg2rad(72.36), deg2rad(4.57), deg2rad(-19.63), deg2rad(165.12)};
             send_goal(home_positions, 3);
 
             auto msg = std_msgs::msg::String();
-            msg.data = "NOK";
+            msg.data = "RETRY";
             movement_state->publish(msg);
         }
   }
