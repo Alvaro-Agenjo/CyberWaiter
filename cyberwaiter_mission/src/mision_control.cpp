@@ -130,7 +130,15 @@ class MisionController : public rclcpp::Node{
 				//Si ya ha reintentado una vez, pasamos al siguiente item del pedido
 				if (!first_attempt){
 					RCLCPP_ERROR(this->get_logger(), "[Mision Control] Movimiento fallido, abortando ...");
-					logic(-1);
+
+					//return with simple move to home
+					auto coord_msg = cyberwaiter_msgs::msg::Movement();
+					coord_msg.point = home_;
+					coord_msg.modo.data = "TO_POINT";
+					coord_msg.gripper_close = 0;
+					publisher_coordinates_->publish(coord_msg);
+
+					estado_actual_ = Estado::PROCESSING_ORDER;
 					return;
 				}
 
@@ -149,8 +157,8 @@ class MisionController : public rclcpp::Node{
 						break;
 					}
 				}
-				logic();
 				first_attempt = false;
+				logic();
 			}
 		}
 
@@ -277,7 +285,7 @@ class MisionController : public rclcpp::Node{
 
 				auto coord_msg = cyberwaiter_msgs::msg::Movement();
 				coord_msg.point = home_;
-				coord_msg.modo.data = "DESPLAZAMIENTO";
+				coord_msg.modo.data = "HOME";
 				coord_msg.gripper_close = 0;
 				publisher_coordinates_->publish(coord_msg);
 				estado_actual_ = Estado::PROCESSING_ORDER;
