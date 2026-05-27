@@ -33,8 +33,7 @@ ament_target_dependencies(kin_solver
 rclcpp std_msgs sensor_msgs 
 tf2_geometry_msgs geometry_msgs 
 kdl_parser orocos_kdl urdf 
-rclcpp_action control_msgs trajectory_msgs 
-cyberwaiter_msgs)
+rclcpp_action control_msgs trajectory_msgs)
 
 add_executable(gripper src/grip_chat.cpp )
 ament_target_dependencies(gripper

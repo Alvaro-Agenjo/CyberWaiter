@@ -21,8 +21,6 @@
 
 #include "urdf/model.h"
 
-#include "cyberwaiter_msgs/srv/gripper.hpp"
-
 #define deg2rad(x) ((x)*M_PI/180.0)
 #define vel 0.3
 #define TCP_offset 0.115
@@ -53,13 +51,6 @@ public:
 
 
         RCLCPP_INFO(this->get_logger(), "Esperando el URDF desde /robot_description...");
-
-        /* Services */
-        callback_group_client_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-        gripper_client_ = this->create_client<cyberwaiter_msgs::srv::Gripper>(
-            "/close_gripper", 
-            rmw_qos_profile_services_default, 
-            callback_group_client_);
 
         /*Accion */
         
@@ -264,31 +255,10 @@ private:
         switch (result.code) {
         case rclcpp_action::ResultCode::SUCCEEDED:{
             RCLCPP_INFO(this->get_logger(), "¡Movimiento completado con éxito!");
-            static int state = 0;
-            bool result;
-            switch (state)
-            {
-            case 0:{
-                result = set_gripper(true);
-                break;
-            }
-            case 1:{
-                result = set_gripper(false);
-                break;
-            }
-            default:{
-                result = true;
-                break;
-            }
-            }
-        
-            if (result){
-                auto msg = std_msgs::msg::String();
-                msg.data = "OK";
-                movement_state->publish(msg);  
-                state = (state + 1) % 3;  
-                RCLCPP_INFO(this->get_logger(), "Estado del gripper %d.", state);
-            }
+            
+            auto msg = std_msgs::msg::String();
+            msg.data = "OK";
+            movement_state->publish(msg);              
             break;
         }
         case rclcpp_action::ResultCode::ABORTED:{
@@ -313,21 +283,7 @@ private:
         }
     }
     
-    bool set_gripper(bool close){
-        auto request = std::make_shared<cyberwaiter_msgs::srv::Gripper::Request>();
-        request->state = close;
-
-        while (!gripper_client_->wait_for_service(3s)) {
-            RCLCPP_ERROR(this->get_logger(), "El servicio de gripper no está disponible.");
-            return false;
-        }
-
-        auto future = gripper_client_->async_send_request(request);
-        
-        auto response = future.get();
-        return response->success;
-
-    }
+    
     bool kdl_initialized_ = false;
     bool first_run_ = false;
 
@@ -346,19 +302,13 @@ private:
     rclcpp::Subscription<geometry_msgs::msg::Pose>::SharedPtr cartesian_sub_;
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_sub_;
 
-    rclcpp::Client<cyberwaiter_msgs::srv::Gripper>::SharedPtr gripper_client_;
-    rclcpp::CallbackGroup::SharedPtr callback_group_client_;
     rclcpp_action::Client<FollowJointTrajectory>::SharedPtr client_ptr_;
 };
 
 
 int main(int argc, char * argv[]) {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<Kinematic_controler>();
-    rclcpp::executors::MultiThreadedExecutor executor;
-    executor.add_node(node);
-    
-    executor.spin();
+    rclcpp::spin(std::make_shared<Kinematic_controler>());
     rclcpp::shutdown();
     return 0;
 }

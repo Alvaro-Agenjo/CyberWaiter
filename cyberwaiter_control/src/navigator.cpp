@@ -14,7 +14,7 @@
 
 #include "kdl/frames.hpp"
 
-// #include "cyberwaiter_msgs/srv/gripper.hpp"
+#include "cyberwaiter_msgs/srv/gripper.hpp"
 
 #define plane_h 0.17
 
@@ -49,14 +49,12 @@ public:
             std::bind(&Navigator::kin_report_callback, this, std::placeholders::_1));
         
         
-        
-        
-        //     /* Services */
-        // callback_group_client_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-        // gripper_client_ = this->create_client<cyberwaiter_msgs::srv::Gripper>(
-        //     "/close_gripper", 
-        //     rmw_qos_profile_services_default, 
-        //     callback_group_client_);
+        /* Services */
+        callback_group_client_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+        gripper_client_ = this->create_client<cyberwaiter_msgs::srv::Gripper>(
+            "/close_gripper", 
+            rmw_qos_profile_services_default, 
+            callback_group_client_);
        
     }
 
@@ -86,6 +84,11 @@ private:
         else if(idle == 0){
             RCLCPP_INFO(this->get_logger(), "Movimiento completado, esperando siguiente comando...");
             state_pub_->publish(std_msgs::msg::String().set__data("OK"));
+
+            if (gripper != 0){
+                set_gripper(gripper == 1? true : false);
+                RCLCPP_INFO(this->get_logger(), "Gripper %d", gripper);
+            }
             idle ++;
         }
     }
@@ -96,6 +99,7 @@ private:
             return; //Ignorar comando si se está ejecutando otro movimiento
         }
 
+        gripper = msg->gripper_close;
         KDL::Frame goal;
         goal.M = KDL::Rotation::Quaternion(msg->point.orientation.x, msg->point.orientation.y, msg->point.orientation.z, msg->point.orientation.w);
         goal.p = KDL::Vector(msg->point.position.x, msg->point.position.y, msg->point.position.z);
@@ -154,23 +158,25 @@ private:
 
         goals.pop_front();
     }
-    // bool set_gripper(bool close){
-    //     auto request = std::make_shared<cyberwaiter_msgs::srv::Gripper::Request>();
-    //     request->state = close;
+    
+    bool set_gripper(bool close){
+        auto request = std::make_shared<cyberwaiter_msgs::srv::Gripper::Request>();
+        request->state = close;
 
-    //     while (!gripper_client_->wait_for_service(3s)) {
-    //         RCLCPP_ERROR(this->get_logger(), "El servicio de gripper no está disponible.");
-    //         return false;
-    //     }
+        while (!gripper_client_->wait_for_service(3s)) {
+            RCLCPP_ERROR(this->get_logger(), "El servicio de gripper no está disponible.");
+            return false;
+        }
 
-    //     auto future = gripper_client_->async_send_request(request);
-    //     auto response = future.get();
-    //     return response->success;
+        auto future = gripper_client_->async_send_request(request);
+        
+        auto response = future.get();
+        return response->success;
 
-    // }
+    }
 
     int idle = true;
-
+    int gripper = 0; //1: cerrado, -1: abierto, 0: no action
     KDL::Frame TCP_;
     std::deque<KDL::Frame> goals;
 
@@ -181,9 +187,9 @@ private:
     rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr coordinate_pub_;
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr state_pub_;
 
-    // rclcpp::Client<cyberwaiter_msgs::srv::Gripper>::SharedPtr gripper_client_;
-    // rclcpp::CallbackGroup::SharedPtr callback_group_client_;
-    
+    rclcpp::Client<cyberwaiter_msgs::srv::Gripper>::SharedPtr gripper_client_;
+    rclcpp::CallbackGroup::SharedPtr callback_group_client_;
+      
 };
 
 
