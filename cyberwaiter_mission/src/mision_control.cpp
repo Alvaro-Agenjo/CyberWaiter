@@ -63,11 +63,11 @@ class MisionController : public rclcpp::Node{
 			_watchdog = this->create_wall_timer(TIMEOUT, std::bind(&MisionController::timeout, this));
 			_watchdog->cancel();
 
-			bandeja_.position.x =  0.21087346633307502; bandeja_.position.y = -0.45922171813440504; bandeja_.position.z = 0.07746603759115141;
+			bandeja_.position.x =  0.21087346633307502; bandeja_.position.y = -0.45922171813440504; bandeja_.position.z = 0.10746603759115141;
 			bandeja_.orientation.x = -0.5587809221483487; bandeja_.orientation.y = 0.45135463268752124; bandeja_.orientation.z = -0.5991390364746974; bandeja_.orientation.w = 0.3536598529190517;
 			
-			home_.position.x = -0.26727347845469734; home_.position.y = -0.20034562111937124; home_.position.z = 0.17165316565933786;
-			home_.orientation.x = -0.2690999101839433; home_.orientation.y = 0.6690927579002101; home_.orientation.z = -0.6926252407235185; home_.orientation.w = 0.013053565688067053;
+			home_.position.x = -0.2790011187404149; home_.position.y = -0.1738465428383369; home_.position.z = 0.24388733559498376;
+			home_.orientation.x = -0.26994772496344116; home_.orientation.y = 0.6680276858064119; home_.orientation.z = -0.6933493761679329; home_.orientation.w = 0.011570624474531195;
 			
 		}
 
@@ -96,7 +96,7 @@ class MisionController : public rclcpp::Node{
 			destino_.position.x = msg->x;
 			destino_.position.y = msg->y;
 			destino_.position.z = msg->z;
-		
+			destino_.position.z += 0.05; //Ajuste de altura para evitar colisiones con la mesa
 
 			tf2::Quaternion q(0.12765878198321853, -0.7040936080801736, 0.6873091932609388, 0.12474573861339583);
 			q.normalize();
@@ -263,7 +263,7 @@ class MisionController : public rclcpp::Node{
 				auto coord_msg = cyberwaiter_msgs::msg::Movement();
 				coord_msg.point = bandeja_;
 
-				coord_msg.point.position.y = bandeja_.position.y - 0.1 * (counter_pedido - 1);
+				coord_msg.point.position.x = bandeja_.position.x - 0.1 * (counter_pedido - 1);
 				coord_msg.modo.data = "DESPLAZAMIENTO";
 				coord_msg.gripper_close = -1;
 				publisher_coordinates_->publish(coord_msg);

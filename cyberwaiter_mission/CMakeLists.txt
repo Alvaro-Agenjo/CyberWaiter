@@ -33,4 +33,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+# Install launch directory
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# Install scripts (like UI interface)
+install(PROGRAMS
+  scripts/interfaz.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 ament_package()

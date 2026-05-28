@@ -201,7 +201,7 @@ private:
         else{
             RCLCPP_WARN(this->get_logger(), "[Kin Solver] [ERROR IK] No se pudo resolver la cinemática inversa para el objetivo recibido. Posicion de escape...");
             // std::vector<double> home_positions = {deg2rad(-24.2), deg2rad(-56.03), deg2rad(80.68), deg2rad(-27.18), deg2rad(-47.22), deg2rad(161.06)};
-            std::vector<double> home_positions = {deg2rad(0.45), deg2rad(-83.47), deg2rad(72.36), deg2rad(4.57), deg2rad(-19.63), deg2rad(165.12)};
+            std::vector<double> home_positions = {deg2rad(4.02), deg2rad(-60.84), deg2rad(103.68), deg2rad(-47.9), deg2rad(-31.91), deg2rad(165.07)};
             send_goal(home_positions, 3);
 
             auto msg = std_msgs::msg::String();

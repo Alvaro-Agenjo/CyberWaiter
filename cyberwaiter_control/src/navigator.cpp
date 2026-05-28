@@ -16,8 +16,9 @@
 
 #include "cyberwaiter_msgs/srv/gripper.hpp"
 
-#define plane_h 0.17
-#define clear_y 0.08
+#define plane_h 0.12
+#define clear_x -0.1
+#define clear_y -0.2
 
 using namespace std::chrono_literals;
 
@@ -136,8 +137,8 @@ private:
             RCLCPP_INFO(this->get_logger(), "[Navigator]Comando recibido: APROX");
             
             goals.push_back(goal);
-            goals.push_front(goals.back() * KDL::Frame(KDL::Vector(0.0, 0, -0.05))); // Punto de aproximación a 10cm del objetivo 
-            goals.push_front(KDL::Frame(KDL::Vector(0.0, -clear_y, 0.0)) * TCP_);
+            goals.push_front(goals.back() * KDL::Frame(KDL::Vector(0.0, 0, -0.1))); // Punto de aproximación a 10cm del objetivo 
+
 
             RCLCPP_INFO(this->get_logger(), "[Navigator] Pt aproximación: x: %f, y: %f, z: %f", goals.front().p.x(), goals.front().p.y(), goals.front().p.z());
             RCLCPP_INFO(this->get_logger(), "[Navigator] Pt objetivo: x: %f, y: %f, z: %f", goals.back().p.x(), goals.back().p.y(), goals.back().p.z());
@@ -151,9 +152,9 @@ private:
             goals.push_back(goal);
             
             goals.push_front(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h)) * goal);
-            KDL::Frame tmp = KDL::Frame(KDL::Vector(-0.02, -0.3, plane_h));
-            tmp.M = goal.M;
-            goals.push_front(tmp);
+            // KDL::Frame tmp = KDL::Frame(KDL::Vector(-0.02, -0.3, plane_h));
+            // tmp.M = goal.M;
+            // goals.push_front(tmp);
             goals.push_front(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h)) * TCP_);
 
             in_progress_ = true;
@@ -167,12 +168,12 @@ private:
             goals.push_back(KDL::Frame(KDL::Vector(0.0, 0.0, plane_h*0.75)) * TCP_);
 
             KDL::Frame tmp = goals.back();
-            tmp.p.y(-0.48922171813440504);
+            tmp.p.y(TCP_.p.y());
             goals.push_back(tmp);
 
 
             tmp.p.x(0.02);
-            tmp.p.y(-0.37);
+//            tmp.p.y(-0.37);
             
             goals.push_back(tmp);
 
