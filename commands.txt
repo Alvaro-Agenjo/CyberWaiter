@@ -17,16 +17,16 @@ conecct via ethernet cable
 lower the firewall restriction for comunication with ur3e
 - sudo ufw disable
 in teach pendant:
-	- network options: set static ip (any)
+	- network options: set static ip (169.254.12.28)
 	- configure External control (host ip, and name)
 	- add urcaps program and play
 on user PC set IPv4 address (same network, different address)	
 
 create calibration:
-- ros2 launch ur_calibration calibration_correction.launch.py   robot_ip:=any   target_filename:="${HOME}/my_ur3e_calibration.yaml"
+- ros2 launch ur_calibration calibration_correction.launch.py   robot_ip:=169.254.12.28   target_filename:="${HOME}/my_ur3e_calibration.yaml"
 
 launch controller: 
-- ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=any kinematics_params_file:="${HOME}/my_ur3e_calibration.yaml"
+- ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=169.254.12.28 kinematics_params_file:="${HOME}/my_ur3e_calibration.yaml"
 
 
 
