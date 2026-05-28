@@ -66,8 +66,8 @@ class MisionController : public rclcpp::Node{
 			bandeja_.position.x =  0.21087346633307502; bandeja_.position.y = -0.45922171813440504; bandeja_.position.z = 0.07746603759115141;
 			bandeja_.orientation.x = -0.5587809221483487; bandeja_.orientation.y = 0.45135463268752124; bandeja_.orientation.z = -0.5991390364746974; bandeja_.orientation.w = 0.3536598529190517;
 			
-			home_.position.x = -0.2790011187404149; home_.position.y = -0.1738465428383369; home_.position.z = 0.17388733559498376;
-			home_.orientation.x = -0.26994772496344116; home_.orientation.y = 0.6680276858064119; home_.orientation.z = -0.6933493761679329; home_.orientation.w = 0.011570624474531195;
+			home_.position.x = -0.26727347845469734; home_.position.y = -0.20034562111937124; home_.position.z = 0.17165316565933786;
+			home_.orientation.x = -0.2690999101839433; home_.orientation.y = 0.6690927579002101; home_.orientation.z = -0.6926252407235185; home_.orientation.w = 0.013053565688067053;
 			
 		}
 

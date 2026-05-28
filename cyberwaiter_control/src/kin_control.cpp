@@ -122,7 +122,7 @@ private:
         }
 
         ik_solver_ = std::make_shared<KDL::ChainIkSolverPos_NR_JL>(
-            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 3000, 1e-4);
+            chain_, q_min, q_max, *fk_solver_, *vik_solver_, 5000, 1e-3);
 
         kdl_initialized_ = true;
         RCLCPP_INFO(this->get_logger(), "KDL inicializado correctamente con el URDF del sistema.");
