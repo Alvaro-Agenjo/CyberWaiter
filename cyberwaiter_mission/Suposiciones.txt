@@ -1,0 +1,16 @@
+# La interfaz envia en un vector que contiene como primer el emento el número total de bebidas a servir,
+#y posteriormente un código que representa el tipo de bebida.
+
+# La mision envia un texto para indicar el estado
+
+# La mision envia algun tipo de referencia al modulo de reconocimiento para especificar el tipo de refresco a reconocer
+# (de momento el mismo código que recibe de la GUI)
+
+# Al identificar la bebida, el modulo de reconocimiento envia las coordenadas de la misma (pose). Si no ha encontrado envia pose 0,0,0
+
+# si no es nula, el modulo de mision envia al control del UR la posicion de la lata a alcanzar.
+# cuando el ur ha cogido la lata enviaria un strign "Catch", esto haria que MISION envie las coordenadas de la bandeja conde debe dejar la lata
+
+# de la misma manera cuando la suelte se enviará otro mensaje "Deliver" y retornará a la posicion home (dede donde se realiza el reconocimiento)
+
+# al alcanzar el Home, se notifica  a mision que empieza a procesar la siguiente bebida de la lista
